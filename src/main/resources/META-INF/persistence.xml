@@ -4,7 +4,7 @@
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver" />
             <property name="jakarta.persistence.jdbc.url"
-                       value="jdbc:postgresql://@be-buildweek1-trasportopubblico-backend-buildweek1-trasporto-pu.e.aivencloud.com:22655/defaultdb?sslmode=require" />
+                       value="jdbc:postgresql://be-buildweek1-trasportopubblico-backend-buildweek1-trasporto-pu.e.aivencloud.com:22655/defaultdb?sslmode=require" />
             <property name="jakarta.persistence.jdbc.user" value="avnadmin" />
             <property name="jakarta.persistence.jdbc.password" value="AVNS_dEMQWifgQEIMXBDkH3B" />
 
@@ -14,7 +14,7 @@
             <!-- dialetto (vocaboli) -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
             <!-- Creazione automatica delle tabelle -->
-            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.hbm2ddl.auto" value="create" />
         </properties>
     </persistence-unit>
 </persistence>

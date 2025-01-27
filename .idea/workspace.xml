@@ -4,43 +4,63 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="45fe0e0e-4496-44d0-be39-ab9e1c258823" name="Changes" comment="Update persistence.xml" />
+    <list default="true" id="45fe0e0e-4496-44d0-be39-ab9e1c258823" name="Changes" comment="SetUp">
+      <change afterPath="$PROJECT_DIR$/../be-buldWild1/src/main/java/Entities/Mezzi.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../be-buldWild1/src/main/java/Entities/Tram.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../be-buldWild1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../be-buldWild1/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../be-buldWild1/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../be-buldWild1/src/main/java/org/example/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../be-buldWild1/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../be-buldWild1/src/main/resources/META-INF/persistence.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;Serena293&quot;
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/../be-buldWild1" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../be-buldWild1" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Serena293"
   }
-}</component>
+}]]></component>
   <component name="GithubPullRequestsUISettings"><![CDATA[{
   "selectedUrlAndAccountId": {
     "url": "https://github.com/Serena293/be-bw1.git",
-    "accountId": "cbc0d0fb-9303-4955-a454-c632a87610a7"
+    "accountId": "239d5d18-51c8-4c0b-93e6-f59b25509a26"
   }
 }]]></component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 4
-}</component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 4
+}]]></component>
   <component name="ProjectId" id="2sCxRHa0Od6VJFnwfGNaxSEZ464" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "serena-1",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/nikki/OneDrive/Desktop/Epicode/Corso/BACKEND/be-bw1"
+    "last_opened_file_path": "C:/Users/Utente/Desktop/Epicode/BE/be-buldWild1"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -60,15 +80,7 @@
       <option name="project" value="LOCAL" />
       <updated>1737973412117</updated>
     </task>
-    <task id="LOCAL-00002" summary="Update persistence.xml">
-      <option name="closed" value="true" />
-      <created>1737976063541</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1737976063541</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -84,7 +96,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="SetUp" />
-    <MESSAGE value="Update persistence.xml" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update persistence.xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="SetUp" />
   </component>
 </project>
