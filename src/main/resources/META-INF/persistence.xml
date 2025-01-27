@@ -4,8 +4,8 @@
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver" />
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://@be-buildweek1-trasportopubblico-backend-buildweek1-trasporto-pu.e.aivencloud.com:22655/defaultdb?sslmode=require" />
-            <property name="jakarta.persistence.jdbc.user" value="avnadmin" />
-            <property name="jakarta.persistence.jdbc.password" value="" />
+            <!--<property name="jakarta.persistence.jdbc.user" value="avnadmin" />
+            <property name="jakarta.persistence.jdbc.password" value="AVNS_dEMQWifgQEIMXBDkH3B" /> -->
 
             <!-- Abilita il logging SQL -->
             <property name="hibernate.show_sql" value="true" />
