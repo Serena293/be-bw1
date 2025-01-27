@@ -10,6 +10,10 @@
       <change beforePath="$PROJECT_DIR$/../be-buldWild1/src/main/java/Entities/Mezzi.java" beforeDir="false" afterPath="$PROJECT_DIR$/../be-buldWild1/src/main/java/Entities/Mezzi.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../be-buldWild1/src/main/java/Entities/Tram.java" beforeDir="false" afterPath="$PROJECT_DIR$/../be-buldWild1/src/main/java/Entities/Tram.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../be-buldWild1/src/main/java/Entities/Tratta.java" beforeDir="false" afterPath="$PROJECT_DIR$/../be-buldWild1/src/main/java/Entities/Tratta.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Entities/Distributori.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Entities/Negozi.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Entities/Rivenditori.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,23 +33,23 @@
         <entry key="$PROJECT_DIR$/../be-buldWild1" value="master" />
       </map>
     </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../be-buldWild1" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Serena293"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Serena293&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Serena293/be-bw1.git",
-    "accountId": "239d5d18-51c8-4c0b-93e6-f59b25509a26"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Serena293/be-bw1.git&quot;,
+    &quot;accountId&quot;: &quot;239d5d18-51c8-4c0b-93e6-f59b25509a26&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
   <component name="ProjectId" id="2sCxRHa0Od6VJFnwfGNaxSEZ464" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -59,6 +63,7 @@
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "serena-3",
+    "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Utente/Desktop/Epicode/BE/be-buldWild1"
   }
