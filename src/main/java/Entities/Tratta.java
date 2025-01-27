@@ -1,5 +1,6 @@
 package Entities;
 
+//TODO: tenere traccia del numero di volte che un mezzo percorre una tratta, (log?!)
 import jakarta.persistence.*;
 
 @Entity

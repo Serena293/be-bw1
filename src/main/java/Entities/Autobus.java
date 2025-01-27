@@ -13,7 +13,7 @@ public class  Autobus extends Mezzi {
     //Costruttore vuoto
     public Autobus(){}
 
-    //costruttore
+    //Costruttore
     public Autobus(Stato stato, String descrizione, int capienza){
         super(stato, descrizione);
         this.capienza = capienza;
@@ -36,6 +36,7 @@ public class  Autobus extends Mezzi {
         this.id = id;
     }
 
+    @Override
     public String toString(){
         return "Autobus{" +
                 "id=" + id +

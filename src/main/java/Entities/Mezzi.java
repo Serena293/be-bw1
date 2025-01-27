@@ -1,6 +1,7 @@
 package Entities;
 
-import jakarta.persistence.ManyToOne;
+//l'esercizio chide di tenere traccia del cambiamento di stato, log?!
+
 
 public abstract class Mezzi {
 
@@ -13,6 +14,7 @@ public abstract class Mezzi {
     private String descrizione;
     //Ogni tratta può essere percorsa da più mezzi contemporaneamente, quindi la relazione è molti ad uno
     private Tratta tratta;
+    //TODO: aggiungere biglietto, quando un biglietto viene validato viene automaticamente annullato.
 
     // Costruttore vuoto
     public Mezzi() {}
@@ -22,7 +24,7 @@ public abstract class Mezzi {
         this.stato = stato;
     }
 
-    // Costruttore con stato e descrizione
+    // Costruttore
     public Mezzi(Stato stato, String descrizione) {
         this.stato = stato;
         this.descrizione = descrizione;

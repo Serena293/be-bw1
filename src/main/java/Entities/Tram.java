@@ -8,6 +8,7 @@ public class Tram extends Mezzi {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    //la capienza potrebbe essere final, tutti i tam hanno una certa capienza e gli autobus ne hanno un'altra
     private int capienza;
 
     // Costruttore
@@ -35,7 +36,7 @@ public class Tram extends Mezzi {
         this.capienza = capienza;
     }
 
-    // Metodo toString() corretto
+    // Metodo toString()
     @Override
     public String toString() {
         return "Tram{" +
