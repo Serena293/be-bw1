@@ -8,5 +8,5 @@ public interface AbbonamentoDao {
 	void salvaAbbonamento(Abbonamento abbonamento);
 	Abbonamento trovaPerCodice(Long codice);
 	List<Abbonamento> abbonamentiEmessiPerPeriodo(String startDate, String endDate);
-	Abbonamento trovaPerTessera(Long tessera);
+	Abbonamento trovaPerTessera(String numeroTessera);
 }
