@@ -9,7 +9,7 @@ public class Amministratore extends Utente {
 
     public Amministratore(){}
 
-    public Amministratore(String nome, String cognome,boolean possiedeTessera, LocalDate dataScadenzaTessera){
-        super(nome, cognome,possiedeTessera, dataScadenzaTessera);
+    public Amministratore(String nome, String cognome,boolean possiedeTessera, Tessera tessera){
+        super(nome, cognome,possiedeTessera, tessera);
     }
 }
