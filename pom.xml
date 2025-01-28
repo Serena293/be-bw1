@@ -18,6 +18,9 @@
         <version>6.6.5.Final</version>
     </dependency>
 
+
+
+
 </dependencies>
     <groupId>org.example</groupId>
     <artifactId>be-buldWild1.</artifactId>

@@ -1,32 +1,14 @@
 package Entities;
-
-//l'esercizio chide di tenere traccia del cambiamento di stato, log?!
-
+import java.util.logging.Logger;
 
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Mezzi {
-
-    public Mezzi(Long id,Stato stato, String descrizione, Tratta tratta) {
-    }
-
-    public Mezzi(Stato stato, String descrizione, Tratta tratta) {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public enum Stato {
-        InManutenzione,
-        InServizio
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,23 +21,28 @@ public abstract class Mezzi {
     @ManyToOne
     @JoinColumn(name="codice_tratta")
     private Tratta tratta;
+    private Biglietto biglietto;
     //TODO: aggiungere biglietto, quando un biglietto viene validato viene automaticamente annullato.
+    List<Periodo> periodi;
+
+    private static final Logger logger = Logger.getLogger(Mezzi.class.getName());
 
     // Costruttore vuoto
     public Mezzi() {}
 
-    // Costruttore con solo lo stato
-    public Mezzi(Stato stato) {
-        this.stato = stato;
-    }
-
-    // Costruttore
+    // Costruttori
     public Mezzi(Stato stato, String descrizione) {
         this.stato = stato;
         this.descrizione = descrizione;
     }
 
-    // Getter e Setter per 'stato'
+    public Mezzi(Stato stato, String descrizione, Tratta tratta) {
+        this.stato =stato;
+        this.descrizione=descrizione;
+        this.tratta = tratta;
+    }
+
+    // Getter e Setter
     public Stato getStato() {
         return stato;
     }
@@ -64,12 +51,48 @@ public abstract class Mezzi {
         this.stato = stato;
     }
 
-    // Getter e Setter per 'descrizione'
+
     public String getDescrizione() {
         return descrizione;
     }
 
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
+    }
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public enum Stato {
+        InManutenzione,
+        InServizio
+    }
+    //metodo per aggiornare lo stato
+    public void aggiornaStato(){
+            //TODO: aggiorna "periodi di tempo" all'interno di questo metodo
+             /*
+             * controllo che periodi(lista) non sia vuoto
+             * recupero ultimo elemento della lista
+             * imposta valore di data fine
+             * crea nuovo periodo (senza dataFine)
+             * aggiungi il nuovo periodo alla lista
+              */
+        if(!periodi.isEmpty()){
+            periodi.getLast().setDataFine(LocalDate.now());
+                if(stato == Stato.InManutenzione ) {
+                stato = Stato.InServizio;
+                Periodo periodo = new Periodo(LocalDate.now(), Periodo.TipoPeriodo.InServizio);
+                periodi.add(periodo);
+            } else if (stato == Stato.InServizio) {
+                stato = Stato.InManutenzione;
+                Periodo periodo = new Periodo(LocalDate.now(), Periodo.TipoPeriodo.InManutenzione);
+                periodi.add(periodo);
+            }
+
+        }
     }
 }
