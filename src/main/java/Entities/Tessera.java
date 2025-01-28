@@ -13,7 +13,7 @@ public class Tessera {
 	private Long id;
 
 	@Column(nullable = false, unique = true)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	//@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private String numeroTessera;
 
 	@Column(nullable = false)

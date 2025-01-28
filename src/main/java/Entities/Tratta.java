@@ -3,18 +3,23 @@ package Entities;
 //TODO: tenere traccia del numero di volte che un mezzo percorre una tratta, (log?!)
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "Tratte")
 public class Tratta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long codice_tratta;
     private String partenza;
     private String capolinea;
     private double tempoDiPercorrenza;
+
     //ogni mezzo può percorrere una sola tratta alla volta quindi la relazione è uno a molti
-    private Mezzi mezzo;
+    @OneToMany(mappedBy = "tratta")
+    private List<Mezzi> mezzi;
 
 
     public Long getCodice_tratta() {

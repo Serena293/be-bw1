@@ -5,18 +5,16 @@ import jakarta.persistence.*;
 @Entity
 @Table (name = "Autobus")
 public class  Autobus extends Mezzi {
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private int capienza;
+
+    private final int capienza = 55;
 
     //Costruttore vuoto
     public Autobus(){}
 
     //Costruttore
-    public Autobus(Stato stato, String descrizione, int capienza){
-        super(stato, descrizione);
-        this.capienza = capienza;
+    public Autobus(Stato stato, String descrizione, Tratta tratta){
+        super(stato, descrizione, tratta);
+
     }
 
 //Getter e Setters
@@ -24,22 +22,11 @@ public class  Autobus extends Mezzi {
         return capienza;
     }
 
-    public void setCapienza(int capienza) {
-        this.capienza = capienza;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     @Override
     public String toString(){
         return "Autobus{" +
-                "id=" + id +
+               // "id=" + id +
                 ", capienza=" + capienza +
                 ", stato=" + getStato() +
                 '}';
