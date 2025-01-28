@@ -1,24 +1,24 @@
 package Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 
 @Entity
+@Table (name = "Tram")
 public class Tram extends Mezzi {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    //la capienza potrebbe essere final, tutti i tam hanno una certa capienza e gli autobus ne hanno un'altra
     private int capienza;
 
     // Costruttore
-    public Tram(Stato stato, int capienza) {
-        super(stato);
+    public Tram(Stato stato,String descrizione, int capienza) {
+        super(stato, descrizione);
+
         this.capienza = capienza;
     }
 
-    // Getter e Setter per id
+    // Getter e Setter
     public Long getId() {
         return id;
     }
@@ -36,7 +36,7 @@ public class Tram extends Mezzi {
         this.capienza = capienza;
     }
 
-    // Metodo toString() corretto
+    // Metodo toString()
     @Override
     public String toString() {
         return "Tram{" +
