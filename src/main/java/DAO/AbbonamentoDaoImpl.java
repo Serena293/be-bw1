@@ -36,11 +36,22 @@ public class AbbonamentoDaoImpl implements AbbonamentoDao {
 		return result;
 	}
 
-	public Abbonamento trovaPerTessera(Long tessera){
+
+	public Abbonamento trovaPerTessera(String numeroTessera) {
 		EntityManager em = emf.createEntityManager();
-		Abbonamento abbonamento = em.find(Abbonamento.class, tessera);
-		em.close();
-		return abbonamento;
+		try {
+			// Cerca l'abbonamento associato al numero di tessera
+			Abbonamento abbonamento = em.createQuery(
+					"SELECT a FROM Abbonamento a WHERE a.tessera.numeroTessera = :numeroTessera", Abbonamento.class)
+				.setParameter("numeroTessera", numeroTessera)
+				.getSingleResult();
+			return abbonamento;
+		} catch (Exception e) {
+			// Se non viene trovato nessun abbonamento, restituisci null
+			return null;
+		} finally {
+			em.close();
+		}
 	}
 
 
