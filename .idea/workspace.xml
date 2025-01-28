@@ -5,22 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="45fe0e0e-4496-44d0-be39-ab9e1c258823" name="Changes" comment="SetUp">
-      <change afterPath="$PROJECT_DIR$/../be-buldWild1/src/main/java/DAO/AutobusDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../be-buldWild1/src/main/java/DAO/TramDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../be-buldWild1/src/main/java/DAO/TrattaDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../be-buldWild1/src/main/resources/logback.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../be-buldWild1/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../be-buldWild1/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../be-buldWild1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../be-buldWild1/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../be-buldWild1/src/main/java/Entities/Autobus.java" beforeDir="false" afterPath="$PROJECT_DIR$/../be-buldWild1/src/main/java/Entities/Autobus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../be-buldWild1/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../be-buldWild1/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../be-buldWild1/src/main/java/Entities/Mezzi.java" beforeDir="false" afterPath="$PROJECT_DIR$/../be-buldWild1/src/main/java/Entities/Mezzi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../be-buldWild1/src/main/java/Entities/Tessera.java" beforeDir="false" afterPath="$PROJECT_DIR$/../be-buldWild1/src/main/java/Entities/Tessera.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../be-buldWild1/src/main/java/Entities/Tram.java" beforeDir="false" afterPath="$PROJECT_DIR$/../be-buldWild1/src/main/java/Entities/Tram.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../be-buldWild1/src/main/java/Entities/Tratta.java" beforeDir="false" afterPath="$PROJECT_DIR$/../be-buldWild1/src/main/java/Entities/Tratta.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../be-buldWild1/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../be-buldWild1/src/main/java/org/example/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DAO/AbbonamentoDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DAO/AbbonamentoDaoImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DAO/BigliettoDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/BigliettoDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/BigliettoDao.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,12 +38,12 @@
     &quot;assignee&quot;: &quot;Serena293&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Serena293/be-bw1.git",
-    "accountId": "cbc0d0fb-9303-4955-a454-c632a87610a7"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Serena293/be-bw1.git&quot;,
+    &quot;accountId&quot;: &quot;239d5d18-51c8-4c0b-93e6-f59b25509a26&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -70,11 +60,19 @@
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "niccoBranch",
+    "git-widget-placeholder": "Serena-5",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Utente/Desktop/Epicode/BE/be-buldWild1"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Utente\Desktop\Epicode\BE\be-buldWild1\src\main" />
+      <recent name="C:\Users\Utente\Desktop\Epicode\BE\be-buldWild1\src\main\java" />
+      <recent name="C:\Users\Utente\Desktop\Epicode\BE\be-buldWild1\src\main\resources" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

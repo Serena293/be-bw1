@@ -6,6 +6,10 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
+
+import org.slf4j.LoggerFactory;
+
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Mezzi {
@@ -25,7 +29,9 @@ public abstract class Mezzi {
     //TODO: aggiungere biglietto, quando un biglietto viene validato viene automaticamente annullato.
     List<Periodo> periodi;
 
-    private static final Logger logger = Logger.getLogger(Mezzi.class.getName());
+   // private static final Logger logger = Logger.getLogger(Mezzi.class.getName());
+    private static final Logger logger = (Logger) LoggerFactory.getLogger(Mezzi.class);
+
 
     // Costruttore vuoto
     public Mezzi() {}

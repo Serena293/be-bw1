@@ -18,10 +18,14 @@
         <version>6.6.5.Final</version>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
+    <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>1.5.8</version>
+    </dependency>
 
-
-
-</dependencies>
+ </dependencies>
     <groupId>org.example</groupId>
     <artifactId>be-buldWild1.</artifactId>
     <version>1.0-SNAPSHOT</version>

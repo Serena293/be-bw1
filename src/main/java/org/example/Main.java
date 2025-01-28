@@ -6,9 +6,15 @@ import Entities.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Main {
     public static void main(String[] args) {
+         final Logger logger = LoggerFactory.getLogger(Main.class);
+
+        logger.info("Applicazione avviata.");
+        System.out.println("Hello");
 /*
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("defaultdb");
         EntityManager em = emf.createEntityManager();
