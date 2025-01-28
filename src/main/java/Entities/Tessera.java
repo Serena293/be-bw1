@@ -14,7 +14,7 @@ public class Tessera {
 
 	@Column(nullable = false, unique = true)
 	//@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private String numeroTessera;
+	private Long numeroTessera;
 
 	@Column(nullable = false)
 	private LocalDate dataEmissione;
@@ -30,11 +30,11 @@ public class Tessera {
 		this.id = id;
 	}
 
-	public String getNumeroTessera() {
+	public Long getNumeroTessera() {
 		return numeroTessera;
 	}
 
-	public void setNumeroTessera(String numeroTessera) {
+	public void setNumeroTessera(Long numeroTessera) {
 		this.numeroTessera = numeroTessera;
 	}
 
