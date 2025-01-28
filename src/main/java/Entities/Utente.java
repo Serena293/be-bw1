@@ -12,15 +12,15 @@ public abstract class Utente {
     private String nome;
     private String cognome;
     private boolean possiedeTessera;
-    private LocalDate dataScadenzaTessera;
+    private Tessera tessera;
 
     public Utente(){}
 
-public Utente(String nome,String cognome,  boolean possiedeTessera,LocalDate dataScadenzaTessera){
+public Utente(String nome,String cognome,  boolean possiedeTessera,Tessera tessera){
     this.nome = nome;
     this.cognome = cognome;
     this.possiedeTessera = possiedeTessera;
-    this.dataScadenzaTessera = dataScadenzaTessera;
+    this.tessera = tessera;
 }
 
 
@@ -49,11 +49,12 @@ public Utente(String nome,String cognome,  boolean possiedeTessera,LocalDate dat
         this.possiedeTessera = possiedeTessera;
     }
 
-    public LocalDate getDataScadenzaTessera() {
-        return dataScadenzaTessera;
+
+    public Tessera getTessera() {
+        return tessera;
     }
 
-    public void setDataScadenzaTessera(LocalDate dataScadenzaTessera) {
-        this.dataScadenzaTessera = dataScadenzaTessera;
+    public void setTessera(Tessera tessera) {
+        this.tessera = tessera;
     }
 }
