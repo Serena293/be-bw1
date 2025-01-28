@@ -1,6 +1,6 @@
 package Entities;
 
-class Distributori extends Rivenditori {
+public class Distributori extends Rivenditori {
     private String tipoDiDistributore;
     private String localizzazione;
 
