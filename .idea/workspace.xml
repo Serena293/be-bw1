@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="45fe0e0e-4496-44d0-be39-ab9e1c258823" name="Changes" comment="SetUp">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Entities/Distributori.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Entities/Negozi.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Entities/Rivenditori.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAO/AbbonamentoDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAO/AbbonamentoDaoImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/DAO/BigliettoDaoImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/BigliettoDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/BigliettoDao.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,12 +37,12 @@
     &quot;assignee&quot;: &quot;Serena293&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/Serena293/be-bw1.git&quot;,
-    &quot;accountId&quot;: &quot;239d5d18-51c8-4c0b-93e6-f59b25509a26&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Serena293/be-bw1.git",
+    "accountId": "cbc0d0fb-9303-4955-a454-c632a87610a7"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -57,7 +58,8 @@
   "keyToString": {
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "niccoBranch",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Utente/Desktop/Epicode/BE/be-buldWild1"
   }
