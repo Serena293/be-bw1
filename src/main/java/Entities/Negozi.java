@@ -1,6 +1,6 @@
 package Entities;
 
- class Negozi extends Rivenditori {
+ public class Negozi extends Rivenditori {
      private String nomeNegozio;
      private String indirizzo;
 
