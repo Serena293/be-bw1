@@ -1,6 +1,8 @@
 package Entities;
 
 import jakarta.persistence.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Entity
 @Table (name = "Autobus")
