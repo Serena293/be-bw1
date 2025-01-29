@@ -12,7 +12,13 @@ public abstract class Utente {
     private String nome;
     private String cognome;
     private boolean possiedeTessera;
+
+    @OneToOne(mappedBy = "tessera")
     private Tessera tessera;
+
+    @ManyToOne
+    @JoinColumn (name = "codiceUnivoco")
+    private Biglietto biglietto;
 
     public Utente(){}
 

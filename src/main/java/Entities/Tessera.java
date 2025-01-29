@@ -22,6 +22,13 @@ public class Tessera {
 	@Column(nullable = false)
 	private LocalDate dataScadenza;
 
+	@OneToMany(mappedBy = "tessera")
+	private Abbonamento abbonamento;
+
+	@OneToOne
+	@JoinColumn(name = "tesseraId")
+	private Utente utente;
+
 	public Long getId() {
 		return id;
 	}
@@ -56,18 +63,21 @@ public class Tessera {
 
 	public Tessera(){}
 
-	public Tessera(LocalDate dataEmissione, LocalDate dataScadenza) {
+	public Tessera(LocalDate dataEmissione, LocalDate dataScadenza, Abbonamento abbonamento) {
 		this.dataEmissione = dataEmissione;
 		this.dataScadenza = dataScadenza;
+		this.abbonamento = abbonamento;
+
 	}
 
 	@Override
 	public String toString() {
 		return "Tessera{" +
-			"id=" + id +
-			", numeroTessera='" + numeroTessera + '\'' +
-			", dataEmissione=" + dataEmissione +
-			", dataScadenza=" + dataScadenza +
-			'}';
+				"id=" + id +
+				", numeroTessera=" + numeroTessera +
+				", dataEmissione=" + dataEmissione +
+				", dataScadenza=" + dataScadenza +
+				", abbonamento=" + abbonamento +
+				'}';
 	}
 }

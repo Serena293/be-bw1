@@ -1,9 +1,18 @@
 package Entities;
 
-   public abstract class Rivenditori {
+import jakarta.persistence.*;
+
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Rivenditori {
 
     private int bigliettiEmessi;
     private int abbonamentiEmessi;
+
+    @ManyToOne
+    @JoinColumn( name = "codiceUnivoco" )
+    private Biglietto biglietto;
+
 
     public Rivenditori(int bigliettiEmessi, int abbonamentiEmessi ) {
         this.bigliettiEmessi = bigliettiEmessi;

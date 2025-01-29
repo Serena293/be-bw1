@@ -10,6 +10,12 @@ public class Biglietto implements Accesso{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long codiceUnivoco;
 
+	@OneToMany(mappedBy = "biglietto")
+	private Rivenditori rivenditore;
+
+	@OneToMany(mappedBy = "biglietto")
+	private Utente utente;
+
 	@Column(nullable = false)
 	private boolean annullato = false;
 
