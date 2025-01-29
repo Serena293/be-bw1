@@ -1,5 +1,5 @@
 package DAO;
-
+/*
 import Entities.UtenteSemplice;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -29,3 +29,4 @@ public class UtenteSempliceDAO {
       et.commit();
   }
 }
+*/

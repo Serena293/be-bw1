@@ -9,12 +9,22 @@ import jakarta.persistence.Persistence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Locale;
+import java.util.Scanner;
+import com.github.javafaker.Faker;
+
+
 public class Main {
     public static void main(String[] args) {
-         final Logger logger = LoggerFactory.getLogger(Main.class);
+        final Logger logger = LoggerFactory.getLogger(Main.class);
 
-        logger.info("Applicazione avviata.");
-        System.out.println("Hello");
+        //logger.info("Applicazione avviata.");
+
+        Scanner scanner = new Scanner(System.in);
+        Faker faker = new Faker(Locale.ITALY);
+        String nome = faker.name().fullName();
+        System.out.println(nome);
+
 /*
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("defaultdb");
         EntityManager em = emf.createEntityManager();

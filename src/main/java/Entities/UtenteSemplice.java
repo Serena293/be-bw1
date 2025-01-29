@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
-
+/*
 @Entity
 @Table(name = "UtenteSemplice")
 public class UtenteSemplice extends Utente {
@@ -16,3 +16,4 @@ public class UtenteSemplice extends Utente {
         super(nome, cognome,possiedeTessera, dataScadenzaTessera);
     }
 }
+*/
