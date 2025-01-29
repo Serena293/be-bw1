@@ -25,12 +25,15 @@ public class  Autobus extends Mezzi {
     }
 
 
+
     @Override
-    public String toString(){
+    public String toString() {
         return "Autobus{" +
-               // "id=" + id +
+                "tratta=" + getTratta() +  // Includi il metodo toString() di Tratta
                 ", capienza=" + capienza +
                 ", stato=" + getStato() +
                 '}';
     }
+
+
 }

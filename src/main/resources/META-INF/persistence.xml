@@ -1,6 +1,23 @@
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
     <persistence-unit name="defaultdb">
 
+        <class>src.main.java.Entities.Abbonamento</class>
+        <class>src.main.java.Entities.Amministratore</class>
+        <class>src.main.java.Entities.Autobus</class>
+        <class>src.main.java.Entities.Biglietto</class>
+        <class>src.main.java.Entities.Distributori</class>
+        <class>src.main.java.Entities.Mezzi</class>
+        <class>src.main.java.Entities.Negozi</class>
+        <class>src.main.java.Entities.Periodo</class>
+        <class>src.main.java.Entities.Rivenditori</class>
+        <class>src.main.java.Entities.Tessera</class>
+        <class>src.main.java.Entities.Tram</class>
+        <class>src.main.java.Entities.Tratta</class>
+        <class>src.main.java.Entities.Utente</class>
+        <class>src.main.java.Entities.UtenteSemplice</class>
+        <class>src.main.java.Entities.ValidationService</class>
+
+
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver" />
             <property name="jakarta.persistence.jdbc.url"
@@ -16,5 +33,6 @@
             <!-- Creazione automatica delle tabelle -->
             <property name="hibernate.hbm2ddl.auto" value="create" />
         </properties>
-    </persistence-unit>
+
+            </persistence-unit>
 </persistence>

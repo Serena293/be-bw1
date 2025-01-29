@@ -11,8 +11,8 @@ public class Tratta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long codice_tratta;
+
     private String partenza;
     private String capolinea;
     private double tempoDiPercorrenza;
@@ -21,6 +21,13 @@ public class Tratta {
     @OneToMany(mappedBy = "tratta")
     private List<Mezzi> mezzi;
 
+    public Tratta(){}
+
+    public Tratta(String partenza, String capolinea, double tempoDiPercorrenza){
+     this.partenza = partenza;
+     this.capolinea = capolinea;
+     this.tempoDiPercorrenza = tempoDiPercorrenza;
+          }
 
     public Long getCodice_tratta() {
         return codice_tratta;
@@ -52,5 +59,16 @@ public class Tratta {
 
     public void setTempoDiPercorrenza(double tempoDiPercorrenza) {
         this.tempoDiPercorrenza = tempoDiPercorrenza;
+    }
+
+    @Override
+    public String toString() {
+        return "Tratta{" +
+                "codice_tratta=" + codice_tratta +
+                ", partenza='" + partenza + '\'' +
+                ", capolinea='" + capolinea + '\'' +
+                ", tempoDiPercorrenza=" + tempoDiPercorrenza +
+                ", mezzi=" + mezzi +
+                '}';
     }
 }

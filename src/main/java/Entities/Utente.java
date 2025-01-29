@@ -1,36 +1,40 @@
 package Entities;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
+
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Utente {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long tesseraId;
+    private Long utente_id;
 
     private String nome;
     private String cognome;
     private boolean possiedeTessera;
 
-    @OneToOne(mappedBy = "tessera")
+    // Relazione OneToOne tra Utente e Tessera
+    @OneToOne(mappedBy = "utente")
     private Tessera tessera;
 
+    // Relazione ManyToOne tra Utente e Biglietto
     @ManyToOne
-    @JoinColumn (name = "codiceUnivoco")
+    @JoinColumn(name = "biglietto_codiceUnivoco")  // La colonna nel DB dovrebbe corrispondere a questo nome
     private Biglietto biglietto;
 
-    public Utente(){}
+    // Costruttori
+    public Utente() {}
 
-public Utente(String nome,String cognome,  boolean possiedeTessera,Tessera tessera){
-    this.nome = nome;
-    this.cognome = cognome;
-    this.possiedeTessera = possiedeTessera;
-    this.tessera = tessera;
-}
+    public Utente(String nome, String cognome, boolean possiedeTessera, Tessera tessera) {
+        this.nome = nome;
+        this.cognome = cognome;
+        this.possiedeTessera = possiedeTessera;
+        this.tessera = tessera;
+    }
 
-
-
+    // Getters e Setters
     public String getNome() {
         return nome;
     }
@@ -54,7 +58,6 @@ public Utente(String nome,String cognome,  boolean possiedeTessera,Tessera tesse
     public void setPossiedeTessera(boolean possiedeTessera) {
         this.possiedeTessera = possiedeTessera;
     }
-
 
     public Tessera getTessera() {
         return tessera;

@@ -1,13 +1,10 @@
 package Entities;
-import java.util.logging.Logger;
 
 import jakarta.persistence.*;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.time.LocalDate;
 import java.util.List;
-
-
-import org.slf4j.LoggerFactory;
 
 
 @Entity
@@ -19,8 +16,9 @@ public abstract class Mezzi {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    private Stato stato;  // Variabile di istanza per memorizzare lo stato
+    private Stato stato;
     private String descrizione;
+
     //Ogni tratta può essere percorsa da più mezzi contemporaneamente, quindi la relazione è molti ad uno
     @ManyToOne
     @JoinColumn(name="codice_tratta")
@@ -29,8 +27,7 @@ public abstract class Mezzi {
     //TODO: aggiungere biglietto, quando un biglietto viene validato viene automaticamente annullato.
     List<Periodo> periodi;
 
-   // private static final Logger logger = Logger.getLogger(Mezzi.class.getName());
-    private static final Logger logger = (Logger) LoggerFactory.getLogger(Mezzi.class);
+    private static final Logger logger = LoggerFactory.getLogger(Mezzi.class);
 
 
     // Costruttore vuoto
@@ -57,7 +54,9 @@ public abstract class Mezzi {
         this.stato = stato;
     }
 
-
+    public Tratta getTratta() {
+        return tratta;
+    }
     public String getDescrizione() {
         return descrizione;
     }
@@ -88,7 +87,7 @@ public abstract class Mezzi {
              * aggiungi il nuovo periodo alla lista
               */
         if(!periodi.isEmpty()){
-            periodi.getLast().setDataFine(LocalDate.now());
+            periodi.get(periodi.size() - 1).setDataFine(LocalDate.now());
                 if(stato == Stato.InManutenzione ) {
                 stato = Stato.InServizio;
                 Periodo periodo = new Periodo(LocalDate.now(), Periodo.TipoPeriodo.InServizio);

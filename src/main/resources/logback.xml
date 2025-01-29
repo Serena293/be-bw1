@@ -1,10 +1,11 @@
 <configuration>
     <!-- Appender per stampare i log sulla console -->
-    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+ <!--   <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
+    -->
 
     <!-- Appender per salvare i log in un file -->
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">

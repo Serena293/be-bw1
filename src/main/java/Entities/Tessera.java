@@ -3,6 +3,7 @@ package Entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "tessere")
@@ -10,10 +11,6 @@ public class Tessera {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
-	@Column(nullable = false, unique = true)
-	//@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long numeroTessera;
 
 	@Column(nullable = false)
@@ -22,20 +19,14 @@ public class Tessera {
 	@Column(nullable = false)
 	private LocalDate dataScadenza;
 
-	@OneToMany(mappedBy = "tessera")
+	@OneToOne(mappedBy = "tessera", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Abbonamento abbonamento;
 
+
 	@OneToOne
-	@JoinColumn(name = "tesseraId")
+	@JoinColumn(name = "utente_id")
 	private Utente utente;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public Long getNumeroTessera() {
 		return numeroTessera;
@@ -61,23 +52,40 @@ public class Tessera {
 		this.dataScadenza = dataScadenza;
 	}
 
+	//costruttori
 	public Tessera(){}
 
-	public Tessera(LocalDate dataEmissione, LocalDate dataScadenza, Abbonamento abbonamento) {
+	public Tessera(LocalDate dataEmissione, LocalDate dataScadenza,  Abbonamento abbonamento, Utente utente) {
 		this.dataEmissione = dataEmissione;
 		this.dataScadenza = dataScadenza;
 		this.abbonamento = abbonamento;
+		this.utente = utente;
+
 
 	}
 
 	@Override
 	public String toString() {
 		return "Tessera{" +
-				"id=" + id +
-				", numeroTessera=" + numeroTessera +
+				"  numeroTessera=" + numeroTessera +
 				", dataEmissione=" + dataEmissione +
 				", dataScadenza=" + dataScadenza +
 				", abbonamento=" + abbonamento +
 				'}';
 	}
+
+	public void setAbbonamento(Abbonamento abbonamento) {
+		this.abbonamento = abbonamento;
+		if (abbonamento != null) {
+			abbonamento.setTessera(this);
+		}
+	}
+
+	public void setUtente(UtenteSemplice utente) {
+		this.utente = utente;
+		if (utente != null) {
+			utente.setTessera(this);
+		}
+	}
+
 }

@@ -28,9 +28,24 @@ public class Abbonamento implements Accesso {
 	@Column(nullable = false)
 	private String cognomeUtente;
 
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "tessera_id", nullable = false)
 	private Tessera tessera;
+
+	public Abbonamento(LocalDate dataInizio, LocalDate dataScadenza, String nomeUtente, String cognomeUtente, Tessera tessera) {
+		this.dataInizio = dataInizio;
+		this.dataScadenza = dataScadenza;
+		this.nomeUtente = nomeUtente;
+		this.cognomeUtente = cognomeUtente;
+		this.tessera = tessera;
+
+		// Assicura la bidirezionalità
+		if (tessera != null) {
+			tessera.setAbbonamento(this);
+		}
+	}
+
+
 
 	@Override
 	public Long getCodiceUnivoco(){

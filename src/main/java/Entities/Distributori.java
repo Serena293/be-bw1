@@ -1,5 +1,8 @@
 package Entities;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class Distributori extends Rivenditori {
     private String tipoDiDistributore;
     private String localizzazione;
