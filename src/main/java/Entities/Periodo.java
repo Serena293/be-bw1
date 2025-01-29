@@ -1,11 +1,19 @@
 package Entities;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 import java.time.LocalDate;
 import java.time.Period;
 
-
+@Entity
 //Classe per controllare i periodi in cui i Mezzi sono InServizio o InManutenzione
 public class Periodo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private  Long id_periodi;
 
     public enum TipoPeriodo {
         InServizio,
@@ -14,8 +22,8 @@ public class Periodo {
     private LocalDate dataInizio;
     private LocalDate dataFine;
     private TipoPeriodo tipoPeriodo;
-
-    //costruttore vuot0
+//private Mezzi mezzi;
+    //costruttore vuoto
     public Periodo(){};
 
     //costruttori

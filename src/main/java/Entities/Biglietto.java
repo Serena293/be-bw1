@@ -8,15 +8,15 @@ public class Biglietto implements Accesso {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column (name = "codiceunivoco")
-	private Long codiceUnivoco;  // Modifica il nome del campo per coerenza
+
+	private Long codiceUnivoco;
 
 	@ManyToOne
-	@JoinColumn(name = "rivenditore_id", nullable = false)  // Assicurati che il campo esista
+	@JoinColumn(name = "rivenditore_id", nullable = false)
 	private Rivenditori rivenditore;
 
-	@OneToOne
-	@JoinColumn(name = "utente_id")  // Modificato in utente_id per corrispondere alla convenzione
+	@ManyToOne
+	@JoinColumn(name = "utente_id")
 	private Utente utente;
 
 	@Column(nullable = false)
@@ -35,6 +35,26 @@ public class Biglietto implements Accesso {
 	@Override
 	public Long getCodiceUnivoco() {
 		return codiceUnivoco;
+	}
+
+	public Utente getUtente() {
+		return utente;
+	}
+
+	public void setUtente(Utente utente) {
+		this.utente = utente;
+	}
+
+	public Rivenditori getRivenditore() {
+		return rivenditore;
+	}
+
+	public void setRivenditore(Rivenditori rivenditore) {
+		this.rivenditore = rivenditore;
+	}
+
+	public void setAnnullato(boolean annullato) {
+		this.annullato = annullato;
 	}
 
 	@Override

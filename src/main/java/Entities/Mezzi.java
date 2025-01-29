@@ -23,8 +23,11 @@ public abstract class Mezzi {
     @ManyToOne
     @JoinColumn(name="codice_tratta")
     private Tratta tratta;
-    private Biglietto biglietto;
+
+    @ManyToOne
+     private Biglietto biglietto;
     //TODO: aggiungere biglietto, quando un biglietto viene validato viene automaticamente annullato.
+
     List<Periodo> periodi;
 
     private static final Logger logger = LoggerFactory.getLogger(Mezzi.class);

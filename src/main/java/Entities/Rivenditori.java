@@ -15,10 +15,12 @@ public abstract class Rivenditori {
     private int abbonamentiEmessi;
 
     // Relazione OneToMany tra Rivenditore e Biglietto
-    @OneToMany(mappedBy = "rivenditore") // Modificato per corrispondere al nome del campo in Biglietto
+    @OneToMany(mappedBy = "rivenditore")
     private List<Biglietto> biglietti;
 
     // Costruttore
+    public  Rivenditori(){}
+
     public Rivenditori(int bigliettiEmessi, int abbonamentiEmessi) {
         this.bigliettiEmessi = bigliettiEmessi;
         this.abbonamentiEmessi = abbonamentiEmessi;

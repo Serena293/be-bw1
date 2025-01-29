@@ -1,12 +1,11 @@
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
     <persistence-unit name="defaultdb">
-
-        <class>src.main.java.Entities.Abbonamento</class>
-        <class>src.main.java.Entities.Amministratore</class>
-        <class>src.main.java.Entities.Autobus</class>
-        <class>src.main.java.Entities.Biglietto</class>
-        <class>src.main.java.Entities.Distributori</class>
-        <class>src.main.java.Entities.Mezzi</class>
+<!--        <class>Entities.Abbonamento</class>
+        <class>Entities.Amministratore</class>
+        <class>Entities.Autobus</class>
+        <class>Entities.Biglietto</class>
+        <class>Entities.Distributori</class>
+        <class>Entities.Mezzi</class>
         <class>src.main.java.Entities.Negozi</class>
         <class>src.main.java.Entities.Periodo</class>
         <class>src.main.java.Entities.Rivenditori</class>
@@ -16,7 +15,7 @@
         <class>src.main.java.Entities.Utente</class>
         <class>src.main.java.Entities.UtenteSemplice</class>
         <class>src.main.java.Entities.ValidationService</class>
-
+-->
 
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver" />
@@ -26,7 +25,7 @@
             <property name="jakarta.persistence.jdbc.password" value="AVNS_dEMQWifgQEIMXBDkH3B" />
 
             <!-- Abilita il logging SQL -->
-            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.show_sql" value="false" />
             <property name="hibernate.format_sql" value="true" />
             <!-- dialetto (vocaboli) -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />

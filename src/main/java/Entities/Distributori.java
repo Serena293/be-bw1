@@ -7,6 +7,10 @@ public class Distributori extends Rivenditori {
     private String tipoDiDistributore;
     private String localizzazione;
 
+
+    //costruttori
+    public Distributori(){}
+
     public Distributori(int bigliettiEmessi, int abbonamentiEmessi, String tipoDiDistributore, String localizzazione){
         super(bigliettiEmessi, abbonamentiEmessi);
         this.tipoDiDistributore = tipoDiDistributore;

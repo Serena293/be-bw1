@@ -19,7 +19,7 @@ public class Tessera {
 	@Column(nullable = false)
 	private LocalDate dataScadenza;
 
-	@OneToOne(mappedBy = "tessera", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToOne(mappedBy = "tessera", cascade = CascadeType.ALL)
 	private Abbonamento abbonamento;
 
 

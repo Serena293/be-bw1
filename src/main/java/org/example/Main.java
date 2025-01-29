@@ -1,6 +1,5 @@
 package org.example;
-
-
+//TODO:CONTROLLARE RELAZIONI BIGLIETTI, MEZZI EC..
 import DAO.*;
 import Entities.*;
 import jakarta.persistence.EntityManager;
@@ -18,9 +17,14 @@ import com.github.javafaker.Faker;
 public class Main {
     public static void main(String[] args) {
 
+        final Logger logger = LoggerFactory.getLogger(Main.class);
+        logger.info("Applicazione avviata.");
+
+
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("defaultdb");
         EntityManager em = emf.createEntityManager();
-        /*
+
+
 
         Scanner scanner = new Scanner(System.in);
 
@@ -47,19 +51,16 @@ public class Main {
         Biglietto biglietto1 = new Biglietto(negozio, utente1,false);
 
 
-        System.out.println(biglietto1);
-*/
+        //System.out.println(biglietto1);
 
-        // System.out.println(autobus407);
+
+        System.out.println(autobus407);
        // System.out.println(tram1);
 
 
 
 
 
-        // final Logger logger = LoggerFactory.getLogger(Main.class);
-
-        //logger.info("Applicazione avviata.");
 
 
        // Faker faker = new Faker(Locale.ITALY);
@@ -110,6 +111,6 @@ public class Main {
         // Chiusura del DAO
         autobusDao.close();
         */
-
+     scanner.close();
     }
 }

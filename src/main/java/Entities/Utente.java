@@ -2,13 +2,15 @@ package Entities;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Utente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long utente_id;
 
     private String nome;
@@ -20,9 +22,8 @@ public abstract class Utente {
     private Tessera tessera;
 
     // Relazione ManyToOne tra Utente e Biglietto
-    @ManyToOne
-    @JoinColumn(name = "biglietto_codiceUnivoco")  // La colonna nel DB dovrebbe corrispondere a questo nome
-    private Biglietto biglietto;
+    @OneToMany(mappedBy = "utente")
+    private List<Biglietto> biglietti = new ArrayList<>();
 
     // Costruttori
     public Utente() {}
@@ -32,6 +33,15 @@ public abstract class Utente {
         this.cognome = cognome;
         this.possiedeTessera = possiedeTessera;
         this.tessera = tessera;
+    }
+
+    public Utente(String nome, Long utente_id, String cognome, Tessera tessera, boolean possiedeTessera, List<Biglietto> biglietti) {
+        this.nome = nome;
+        this.utente_id = utente_id;
+        this.cognome = cognome;
+        this.tessera = tessera;
+        this.possiedeTessera = possiedeTessera;
+        this.biglietti = biglietti;
     }
 
     // Getters e Setters
