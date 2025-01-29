@@ -1,6 +1,6 @@
 package Entities;
 
-abstract class Rivenditori {
+   public abstract class Rivenditori {
 
     private int bigliettiEmessi;
     private int abbonamentiEmessi;
