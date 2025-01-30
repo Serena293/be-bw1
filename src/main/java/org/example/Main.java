@@ -13,14 +13,10 @@ import com.github.javafaker.Faker;
 
 public class Main {
     public static void main(String[] args) {
-        // Crea l'EntityManager
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("defaultdb");
         EntityManager em = emf.createEntityManager();
         Scanner scanner = new Scanner(System.in);
-
-        // Crea un'istanza di Faker per generare dati casuali
         Faker faker = new Faker();
-        char tipoUtente;
 
         // Creazione dei DAO
         AbbonamentoDaoImpl abbonamentoDao = new AbbonamentoDaoImpl(em);
@@ -34,71 +30,120 @@ public class Main {
         TrattaDAO trattaDAO = new TrattaDAO(em);
         UtenteSempliceDAO utenteSempliceDAO = new UtenteSempliceDAO(em);
 
-
-
-
-        // 1. Crea un'istanza di Tratta con valori casuali
+        // Creazione e persistenza di Tratta e Autobus
         String partenza = faker.address().cityName();
         String capolinea = faker.address().cityName();
-        double tempoDiPercorrenza = faker.number().randomDouble(2, 30, 120); // Tempo di percorrenza tra 30 e 120 minuti
+        double tempoDiPercorrenza = faker.number().randomDouble(2, 30, 120);
         Tratta tratta = new Tratta(partenza, capolinea, tempoDiPercorrenza);
-
-        // 2. Crea un'istanza di Stato (se Stato è un enum, scegli un valore casuale)
-        Mezzi.Stato stato = Mezzi.Stato.values()[faker.number().numberBetween(0, Mezzi.Stato.values().length)]; // Se Stato è un enum
-
-        // 3. Crea un'istanza di Autobus usando la Tratta
-        String descrizione = faker.lorem().sentence(); // Una descrizione casuale
+        Mezzi.Stato stato = Mezzi.Stato.values()[faker.number().numberBetween(0, Mezzi.Stato.values().length)];
+        String descrizione = faker.lorem().sentence();
         Autobus autobus = new Autobus(stato, descrizione, tratta);
 
-        // 4. Stampa i dettagli
-        System.out.println("Tratta: " + tratta.getPartenza() + " -> " + tratta.getCapolinea() + " | Tempo di percorrenza: "
-            + tratta.getTempoDiPercorrenza() + " minuti");
-        System.out.println("Autobus: " + autobus.getDescrizione() + " | Stato: " + autobus.getStato());
-
-        // Avvia una transazione per aggiungere le entità al database
         em.getTransaction().begin();
-
         try {
-            // 5. Persisti le entità nel database
             em.persist(tratta);
             em.persist(autobus);
-
-            // Commit della transazione
             em.getTransaction().commit();
             System.out.println("Le entità sono state salvate nel database.");
-
         } catch (Exception e) {
-            // Se c'è un errore, rollback della transazione
             em.getTransaction().rollback();
             e.printStackTrace();
         }
 
-        // Ciclo per verificare il tipo di utente
+        // Ciclo principale per la scelta dell'utente
         while (true) {
-            System.out.println("Premere 1 per amministratore, Premere 2 per utente");
-            tipoUtente = scanner.next().charAt(0);
+            System.out.println("Premere 1 per Amministratore, Premere 2 per Utente, Premere Q per uscire");
+            String input = scanner.next().toUpperCase();
 
-            if (tipoUtente == '1') {
-                System.out.println("Hai scelto Amministratore");
-                break;
-            } else if (tipoUtente == '2') {
-                System.out.println("Hai scelto Utente");
-                break;
-            } else {
-                System.out.println("Input non valido. Per favore, premi 1 per amministratore o 2 per utente.");
+            switch (input) {
+                case "1":
+                    System.out.println("Hai scelto Amministratore");
+                    gestisciAmministratore(scanner, distributoriDao, mezziDAO);
+                    break;
+                case "2":
+                    System.out.println("Hai scelto Utente");
+                    gestisciUtente(scanner, utenteSempliceDAO, abbonamentoDao);
+                    break;
+                case "Q":
+                    System.out.println("Uscita dal programma.");
+                    scanner.close();
+                    em.close();
+                    emf.close();
+                    return;
+                default:
+                    System.out.println("Input non valido. Per favore, premi 1 per Amministratore, 2 per Utente o Q per uscire.");
+                    break;
             }
-
-            //inizio operazioni in base alla scelta
-
         }
-        
-        // Log dell'avvio dell'applicazione
-        final Logger logger = LoggerFactory.getLogger(Main.class);
-        logger.info("Applicazione avviata.");
+    }
 
-        // Chiudi le risorse
-        scanner.close();
-        em.close();
-        emf.close();
+    private static void gestisciAmministratore(Scanner scanner, DistributoriDao distributoriDao, MezziDAO mezziDAO) {
+        while (true) {
+            System.out.println("Scegli un'opzione: 1. Controlla Distributori, 2. Controlla Mezzi, 3. Torna alla scelta iniziale");
+            String input = scanner.next();
+
+            switch (input) {
+                case "1":
+                    System.out.println("Hai scelto Controlla Distributori");
+                    // Logica per controllare i distributori
+                    break;
+                case "2":
+                    System.out.println("Hai scelto Controlla Mezzi");
+                    // Logica per controllare i mezzi
+                    break;
+                case "3":
+                    System.out.println("Torna alla scelta iniziale.");
+                    return;
+                default:
+                    System.out.println("Input non valido.");
+                    break;
+            }
+        }
+    }
+
+    private static void gestisciUtente(Scanner scanner, UtenteSempliceDAO utenteSempliceDAO, AbbonamentoDaoImpl abbonamentoDao) {
+        while (true) {
+            System.out.println("Hai la tessera? (SI/NO)");
+            String rispostaTessera = scanner.next().toUpperCase();
+
+            if (rispostaTessera.equals("SI")) {
+                System.out.println("Inserisci il numero della tessera:");
+                String numeroTessera = scanner.next();
+                System.out.println("La tessera è attiva? (SI/NO)");
+                String tesseraAttiva = scanner.next().toUpperCase();
+
+                if (tesseraAttiva.equals("SI")) {
+                    System.out.println("Scegli il tipo di abbonamento: 1. Settimanale, 2. Mensile");
+                    int sceltaAbbonamento = scanner.nextInt();
+                    switch (sceltaAbbonamento) {
+                        case 1:
+                            System.out.println("Hai scelto l'abbonamento Settimanale");
+                            // Logica per l'abbonamento settimanale
+                            break;
+                        case 2:
+                            System.out.println("Hai scelto l'abbonamento Mensile");
+                            // Logica per l'abbonamento mensile
+                            break;
+                        default:
+                            System.out.println("Scelta non valida.");
+                            break;
+                    }
+                } else {
+                    System.out.println("La tessera non è attiva.");
+                }
+            } else if (rispostaTessera.equals("NO")) {
+                System.out.println("Vuoi fare la tessera? (SI/NO)");
+                String creaTessera = scanner.next().toUpperCase();
+                if (creaTessera.equals("SI")) {
+                    System.out.println("Tessera creata.");
+                    // Logica per creare la tessera
+                } else {
+                    System.out.println("Torna alla scelta iniziale.");
+                    return;
+                }
+            } else {
+                System.out.println("Input non valido.");
+            }
+        }
     }
 }
