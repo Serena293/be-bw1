@@ -22,10 +22,7 @@ public class Main {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("defaultdb");
         EntityManager em = emf.createEntityManager();
         Scanner scanner = new Scanner(System.in);
-
-        // Crea un'istanza di Faker per generare dati casuali
         Faker faker = new Faker();
-        char tipoUtente;
 
         // Creazione dei DAO
         AbbonamentoDaoImpl abbonamentoDao = new AbbonamentoDaoImpl(em);
@@ -42,23 +39,13 @@ public class Main {
         // 1. Crea un'istanza di Tratta con valori casuali
         String partenza = faker.address().cityName();
         String capolinea = faker.address().cityName();
-        double tempoDiPercorrenza = faker.number().randomDouble(2, 30, 120); // Tempo di percorrenza tra 30 e 120 minuti
+        double tempoDiPercorrenza = faker.number().randomDouble(2, 30, 120);
         Tratta tratta = new Tratta(partenza, capolinea, tempoDiPercorrenza);
-
-        // 2. Crea un'istanza di Stato (se Stato è un enum, scegli un valore casuale)
-        Mezzi.Stato stato = Mezzi.Stato.values()[faker.number().numberBetween(0, Mezzi.Stato.values().length)]; // Se Stato è un enum
-
-        // 3. Crea un'istanza di Autobus usando la Tratta
-        String descrizione = faker.lorem().sentence(); // Una descrizione casuale
+        Mezzi.Stato stato = Mezzi.Stato.values()[faker.number().numberBetween(0, Mezzi.Stato.values().length)];
+        String descrizione = faker.lorem().sentence();
         Autobus autobus = new Autobus(stato, descrizione, tratta);
 
-        // 4. Stampa i dettagli
-        System.out.println("Tratta: " + tratta.getPartenza() + " -> " + tratta.getCapolinea() + " | Tempo di percorrenza: " + tratta.getTempoDiPercorrenza() + " minuti");
-        System.out.println("Autobus: " + autobus.getDescrizione() + " | Stato: " + autobus.getStato());
-
-        // Avvia una transazione per aggiungere le entità al database
         em.getTransaction().begin();
-
         try {
             // 5. Utilizza i DAO per persistere le entità nel database
             trattaDAO.save(tratta);  // salva la tratta
@@ -67,9 +54,7 @@ public class Main {
             // Commit della transazione
             em.getTransaction().commit();
             System.out.println("Le entità sono state salvate nel database.");
-
         } catch (Exception e) {
-            // Se c'è un errore, rollback della transazione
             em.getTransaction().rollback();
             e.printStackTrace();
         }
@@ -81,8 +66,8 @@ public class Main {
 
         // Ciclo per verificare il tipo di utente
         while (true) {
-            System.out.println("Premere 1 per amministratore, Premere 2 per utente");
-            tipoUtente = scanner.next().charAt(0);
+            System.out.println("Premere 1 per Amministratore, Premere 2 per Utente, Premere Q per uscire");
+            String input = scanner.next().toUpperCase();
 
             if (tipoUtente == '1') {
                 System.out.println("Hai scelto Amministratore");
@@ -94,6 +79,7 @@ public class Main {
                 break;
             }
         }
+    }
 
         // Chiudi le risorse
         scanner.close();
