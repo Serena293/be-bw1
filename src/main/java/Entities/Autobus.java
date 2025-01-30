@@ -18,7 +18,6 @@ public class  Autobus extends Mezzi {
     public Autobus(){
 
     }
-
     //Costruttore
     public Autobus(Stato stato, String descrizione, Tratta tratta){
         super(stato, descrizione, tratta);
@@ -26,7 +25,10 @@ public class  Autobus extends Mezzi {
        // System.out.println("Autobus creato!");
     }
 
-//Getter e Setters
+
+
+
+    //Getter e Setters
     public int getCapienza() {
         return capienza;
     }

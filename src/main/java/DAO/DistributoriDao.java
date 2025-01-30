@@ -1,6 +1,7 @@
 package DAO;
 
 import Entities.Distributori;
+import Entities.Tratta;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -16,7 +17,8 @@ public class DistributoriDao {
     }
 
 
-    public void addDistributore(Distributori distributore) {
+
+    public void save(Distributori distributore) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
@@ -42,7 +44,7 @@ public class DistributoriDao {
     }
 
 
-    public void updateDistributore(Distributori distributore) {
+    public void update(Distributori distributore) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
@@ -57,7 +59,7 @@ public class DistributoriDao {
     }
 
 
-    public void deleteDistributore(int id) {
+    public void delete(int id) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();

@@ -92,4 +92,6 @@ public abstract class Utente {
     public void setTessera(Tessera tessera) {
         this.tessera = tessera;
     }
+
+
 }

@@ -5,7 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="45fe0e0e-4496-44d0-be39-ab9e1c258823" name="Changes" comment="SetUp">
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../be-buldWild1/src/main/java/org/example/AppTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../be-buldWild1/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../be-buldWild1/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../be-buldWild1/logs/application.log" beforeDir="false" afterPath="$PROJECT_DIR$/../be-buldWild1/logs/application.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../be-buldWild1/src/main/java/DAO/DistributoriDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../be-buldWild1/src/main/java/DAO/DistributoriDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../be-buldWild1/src/main/java/DAO/NegozioDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/../be-buldWild1/src/main/java/DAO/NegozioDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../be-buldWild1/src/main/java/Entities/Abbonamento.java" beforeDir="false" afterPath="$PROJECT_DIR$/../be-buldWild1/src/main/java/Entities/Abbonamento.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../be-buldWild1/src/main/java/Entities/Autobus.java" beforeDir="false" afterPath="$PROJECT_DIR$/../be-buldWild1/src/main/java/Entities/Autobus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../be-buldWild1/src/main/java/Entities/Biglietto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../be-buldWild1/src/main/java/Entities/Biglietto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../be-buldWild1/src/main/java/Entities/Tessera.java" beforeDir="false" afterPath="$PROJECT_DIR$/../be-buldWild1/src/main/java/Entities/Tessera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../be-buldWild1/src/main/java/Entities/Utente.java" beforeDir="false" afterPath="$PROJECT_DIR$/../be-buldWild1/src/main/java/Entities/Utente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../be-buldWild1/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../be-buldWild1/src/main/java/org/example/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,10 +45,10 @@
     </favorite-branches>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/../be-buldWild1" value="Serena-8" />
+        <entry key="$PROJECT_DIR$/../be-buldWild1" value="master" />
       </map>
     </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../be-buldWild1" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -65,10 +75,11 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.AppTest.executor": "Run",
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "niccoBranch",
+    "git-widget-placeholder": "serena-10",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Utente/Downloads/u4d14",

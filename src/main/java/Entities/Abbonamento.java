@@ -13,23 +13,23 @@ public class Abbonamento implements Accesso {
 	private Long codiceUnivoco;
 
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
+	@Column
 	private TipoAbbonamento tipo;
 
-	@Column(nullable = false)
+	@Column
 	private LocalDate dataInizio;
 
-	@Column(nullable = false)
+	@Column
 	private LocalDate dataScadenza;
 
-	@Column(nullable = false)
+	@Column
 	private String nomeUtente;
 
-	@Column(nullable = false)
+	@Column
 	private String cognomeUtente;
 
 	@OneToOne
-	@JoinColumn(name = "tessera_id", nullable = false)
+	@JoinColumn(name = "tessera_id")
 	private Tessera tessera;
 
 	public Abbonamento(LocalDate dataInizio, LocalDate dataScadenza, String nomeUtente, String cognomeUtente, Tessera tessera) {
