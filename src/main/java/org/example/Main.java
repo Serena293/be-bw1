@@ -51,7 +51,8 @@ public class Main {
         Autobus autobus = new Autobus(stato, descrizione, tratta);
 
         // 4. Stampa i dettagli
-        System.out.println("Tratta: " + tratta.getPartenza() + " -> " + tratta.getCapolinea() + " | Tempo di percorrenza: " + tratta.getTempoDiPercorrenza() + " minuti");
+        System.out.println("Tratta: " + tratta.getPartenza() + " -> " + tratta.getCapolinea() + " | Tempo di percorrenza: "
+            + tratta.getTempoDiPercorrenza() + " minuti");
         System.out.println("Autobus: " + autobus.getDescrizione() + " | Stato: " + autobus.getStato());
 
         // Avvia una transazione per aggiungere le entità al database
@@ -87,9 +88,7 @@ public class Main {
                 System.out.println("Input non valido. Per favore, premi 1 per amministratore o 2 per utente.");
             }
         }
-
         
-
         // Log dell'avvio dell'applicazione
         final Logger logger = LoggerFactory.getLogger(Main.class);
         logger.info("Applicazione avviata.");

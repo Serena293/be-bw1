@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.Period;
 
 @Entity
-//Classe per controllare i periodi in cui i Mezzi sono InServizio o InManutenzione
+//Classe per controllare i periodi in cui i Mezzi sono InServizio o InManutenzione - distributori attivi/fuoriServizio
 public class Periodo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
