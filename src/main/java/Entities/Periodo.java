@@ -1,9 +1,6 @@
 package Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.Period;
@@ -22,7 +19,9 @@ public class Periodo {
     private LocalDate dataInizio;
     private LocalDate dataFine;
     private TipoPeriodo tipoPeriodo;
-//private Mezzi mezzi;
+    @ManyToOne
+    @JoinColumn(name = "mezzo_id")
+    private Mezzi mezzi;
     //costruttore vuoto
     public Periodo(){};
 

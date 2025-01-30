@@ -22,6 +22,10 @@ public class Biglietto implements Accesso {
 	@Column(nullable = false)
 	private boolean annullato = false;
 
+	@ManyToOne
+	@JoinColumn(name = "mezzo_id", nullable = false)
+	private Mezzi mezzi;
+
 	// Costruttori
 	public Biglietto() {}
 

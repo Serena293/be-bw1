@@ -24,11 +24,13 @@ public abstract class Mezzi {
     @JoinColumn(name="codice_tratta")
     private Tratta tratta;
 
-    @ManyToOne
-     private Biglietto biglietto;
+    @OneToMany(mappedBy = "mezzi", cascade = CascadeType.ALL)
+    private List<Biglietto> biglietti;
     //TODO: aggiungere biglietto, quando un biglietto viene validato viene automaticamente annullato.
 
-    List<Periodo> periodi;
+    @OneToMany(mappedBy = "mezzi", cascade = CascadeType.ALL)
+    private List<Periodo> periodi;
+
 
     private static final Logger logger = LoggerFactory.getLogger(Mezzi.class);
 
