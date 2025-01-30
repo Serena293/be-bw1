@@ -87,6 +87,9 @@ public class Main {
             } else {
                 System.out.println("Input non valido. Per favore, premi 1 per amministratore o 2 per utente.");
             }
+
+            //inizio operazioni in base alla scelta
+
         }
         
         // Log dell'avvio dell'applicazione
