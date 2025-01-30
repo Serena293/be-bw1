@@ -11,7 +11,7 @@ public class DistributoriDao {
 
 
     public DistributoriDao(EntityManager em) {
-        emf = Persistence.createEntityManagerFactory("rivenditoriPU");
+        emf = Persistence.createEntityManagerFactory("defaultdb");
         entityManager = emf.createEntityManager();
     }
 

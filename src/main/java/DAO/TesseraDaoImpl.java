@@ -9,7 +9,7 @@ import java.util.List;
 
 public class TesseraDaoImpl implements TesseraDao{
 	private final EntityManager em;
-	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("trasportiPU");
+	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("defaultdb");
 
     public TesseraDaoImpl(EntityManager em) {
 		this.em = em;

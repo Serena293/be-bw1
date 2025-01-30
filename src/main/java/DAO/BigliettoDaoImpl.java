@@ -8,7 +8,7 @@ import jakarta.persistence.Persistence;
 import java.util.List;
 
 public class BigliettoDaoImpl implements BigliettoDao{
-	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("trasportiPU");
+	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("defaultdb");
 
 	public BigliettoDaoImpl(EntityManager em) {
 	}
