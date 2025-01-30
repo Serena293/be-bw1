@@ -131,15 +131,32 @@ public class Main {
                 } else {
                     System.out.println("La tessera non è attiva.");
                 }
-            } else if (rispostaTessera.equals("NO")) {
+            }else if (rispostaTessera.equals("NO")) {
                 System.out.println("Vuoi fare la tessera? (SI/NO)");
                 String creaTessera = scanner.next().toUpperCase();
                 if (creaTessera.equals("SI")) {
                     System.out.println("Tessera creata.");
                     // Logica per creare la tessera
                 } else {
-                    System.out.println("Torna alla scelta iniziale.");
-                    return;
+                    System.out.println("Vuoi fare un biglietto? (SI/NO)");
+                    String creaBiglietto = scanner.next().toUpperCase();
+                    if (creaBiglietto.equals("SI")) {
+                        System.out.println("Per quale mezzo? (autobus/tram)");
+                        String mezzo = scanner.next().toUpperCase();
+                        if (mezzo.equals("AUTOBUS")) {
+                            System.out.println("Biglietto per autobus creato.");
+                            // Logica per creare il biglietto per autobus
+                        } else if (mezzo.equals("TRAM")) {
+                            System.out.println("Biglietto per tram creato.");
+                            // Logica per creare il biglietto per tram
+                        } else {
+                            System.out.println("Mezzo non valido. Riprova.");
+                        }
+                    } else if (creaBiglietto.equals("NO")) {
+                        System.out.println("Operazione terminata.");
+                    } else {
+                        System.out.println("Input non valido. Riprova.");
+                    }
                 }
             } else {
                 System.out.println("Input non valido.");
