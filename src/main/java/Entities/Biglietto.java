@@ -26,6 +26,14 @@ public class Biglietto implements Accesso {
 	@JoinColumn(name = "mezzo_id", nullable = false)
 	private Mezzi mezzi;
 
+	public Mezzi getMezzi() {
+		return mezzi;
+	}
+
+	public void setMezzi(Mezzi mezzi) {
+		this.mezzi = mezzi;
+	}
+
 	// Costruttori
 	public Biglietto() {}
 

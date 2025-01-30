@@ -31,6 +31,25 @@ public abstract class Mezzi {
     @OneToMany(mappedBy = "mezzi", cascade = CascadeType.ALL)
     private List<Periodo> periodi;
 
+    public void setTratta(Tratta tratta) {
+        this.tratta = tratta;
+    }
+
+    public List<Biglietto> getBiglietti() {
+        return biglietti;
+    }
+
+    public void setBiglietti(List<Biglietto> biglietti) {
+        this.biglietti = biglietti;
+    }
+
+    public List<Periodo> getPeriodi() {
+        return periodi;
+    }
+
+    public void setPeriodi(List<Periodo> periodi) {
+        this.periodi = periodi;
+    }
 
     private static final Logger logger = LoggerFactory.getLogger(Mezzi.class);
 

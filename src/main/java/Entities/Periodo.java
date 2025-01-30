@@ -32,6 +32,22 @@ public class Periodo {
         this.tipoPeriodo = tipoPeriodo;
     }
 
+    public Long getId_periodi() {
+        return id_periodi;
+    }
+
+    public void setId_periodi(Long id_periodi) {
+        this.id_periodi = id_periodi;
+    }
+
+    public Mezzi getMezzi() {
+        return mezzi;
+    }
+
+    public void setMezzi(Mezzi mezzi) {
+        this.mezzi = mezzi;
+    }
+
     //la data di fine potrebbe non esserci
     public Periodo(LocalDate dataInizio, TipoPeriodo tipoPeriodo){
         this.dataInizio =dataInizio;

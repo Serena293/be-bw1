@@ -71,4 +71,12 @@ public class Tratta {
                 ", mezzi=" + mezzi +
                 '}';
     }
+
+    public List<Mezzi> getMezzi() {
+        return mezzi;
+    }
+
+    public void setMezzi(List<Mezzi> mezzi) {
+        this.mezzi = mezzi;
+    }
 }

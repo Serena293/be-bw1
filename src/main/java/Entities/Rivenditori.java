@@ -31,6 +31,22 @@ public abstract class Rivenditori {
         return bigliettiEmessi;
     }
 
+    public Long getRivenditore_id() {
+        return rivenditore_id;
+    }
+
+    public void setRivenditore_id(Long rivenditore_id) {
+        this.rivenditore_id = rivenditore_id;
+    }
+
+    public List<Biglietto> getBiglietti() {
+        return biglietti;
+    }
+
+    public void setBiglietti(List<Biglietto> biglietti) {
+        this.biglietti = biglietti;
+    }
+
     public void setBigliettiEmessi(int bigliettiEmessi) {
         this.bigliettiEmessi = bigliettiEmessi;
     }

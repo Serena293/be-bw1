@@ -35,6 +35,22 @@ public abstract class Utente {
         this.tessera = tessera;
     }
 
+    public Long getUtente_id() {
+        return utente_id;
+    }
+
+    public void setUtente_id(Long utente_id) {
+        this.utente_id = utente_id;
+    }
+
+    public List<Biglietto> getBiglietti() {
+        return biglietti;
+    }
+
+    public void setBiglietti(List<Biglietto> biglietti) {
+        this.biglietti = biglietti;
+    }
+
     public Utente(String nome, Long utente_id, String cognome, Tessera tessera, boolean possiedeTessera, List<Biglietto> biglietti) {
         this.nome = nome;
         this.utente_id = utente_id;

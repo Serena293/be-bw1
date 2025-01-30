@@ -20,6 +20,22 @@ public class ValidationService {
 		return tessera != null && tessera.getDataScadenza().isAfter(LocalDate.now());
 	}
 
+	public AbbonamentoDao getAbbonamentoDao() {
+		return abbonamentoDao;
+	}
+
+	public void setAbbonamentoDao(AbbonamentoDao abbonamentoDao) {
+		this.abbonamentoDao = abbonamentoDao;
+	}
+
+	public TesseraDao getTesseraDao() {
+		return tesseraDao;
+	}
+
+	public void setTesseraDao(TesseraDao tesseraDao) {
+		this.tesseraDao = tesseraDao;
+	}
+
 	public boolean verificaAbbonamento(Long numeroTessera) {
 		// Converti il Long in String
 		String numeroTesseraString = String.valueOf(numeroTessera);
