@@ -1,5 +1,6 @@
 package org.example;
 
+import AltreClassi.PercorriTratta;
 import DAO.*;
 import Entities.*;
 import jakarta.persistence.EntityManager;
@@ -13,6 +14,10 @@ import com.github.javafaker.Faker;
 
 public class Main {
     public static void main(String[] args) {
+        // Log dell'avvio dell'applicazione
+        final Logger logger = LoggerFactory.getLogger(Main.class);
+        logger.info("Applicazione avviata.");
+
         // Crea l'EntityManager
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("defaultdb");
         EntityManager em = emf.createEntityManager();
@@ -33,9 +38,6 @@ public class Main {
         TramDao tramDao = new TramDao(em);
         TrattaDAO trattaDAO = new TrattaDAO(em);
         UtenteSempliceDAO utenteSempliceDAO = new UtenteSempliceDAO(em);
-
-
-
 
         // 1. Crea un'istanza di Tratta con valori casuali
         String partenza = faker.address().cityName();
@@ -58,9 +60,9 @@ public class Main {
         em.getTransaction().begin();
 
         try {
-            // 5. Persisti le entità nel database
-            em.persist(tratta);
-            em.persist(autobus);
+            // 5. Utilizza i DAO per persistere le entità nel database
+            trattaDAO.save(tratta);  // salva la tratta
+            autobusDao.save(autobus);  // salva l'autobus
 
             // Commit della transazione
             em.getTransaction().commit();
@@ -72,6 +74,11 @@ public class Main {
             e.printStackTrace();
         }
 
+
+        PercorriTratta percorrerTratta = new PercorriTratta(mezziDAO);
+        percorrerTratta.incrementaPercorrenza(autobus, tratta);
+
+
         // Ciclo per verificare il tipo di utente
         while (true) {
             System.out.println("Premere 1 per amministratore, Premere 2 per utente");
@@ -79,20 +86,14 @@ public class Main {
 
             if (tipoUtente == '1') {
                 System.out.println("Hai scelto Amministratore");
+                logger.info("Tipo utente = amministratore");
                 break;
             } else if (tipoUtente == '2') {
                 System.out.println("Hai scelto Utente");
+                logger.info("Tipo utente = utente semplice");
                 break;
-            } else {
-                System.out.println("Input non valido. Per favore, premi 1 per amministratore o 2 per utente.");
             }
         }
-
-        
-
-        // Log dell'avvio dell'applicazione
-        final Logger logger = LoggerFactory.getLogger(Main.class);
-        logger.info("Applicazione avviata.");
 
         // Chiudi le risorse
         scanner.close();
