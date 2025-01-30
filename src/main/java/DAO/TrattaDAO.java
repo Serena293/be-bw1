@@ -11,10 +11,10 @@ public class TrattaDAO {
     private EntityManagerFactory emf;
     private EntityManager em;
 
-    public TrattaDAO() {
+    public TrattaDAO(EntityManager em) {
         // Inizializza l'EntityManagerFactory e l'EntityManager
         emf = Persistence.createEntityManagerFactory("defaultdb");
-        em = emf.createEntityManager();
+        this.em = emf.createEntityManager();
     }
 
     // Metodo per salvare una Tratta nel database

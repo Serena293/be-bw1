@@ -11,9 +11,9 @@ public class AutobusDao {
     private EntityManagerFactory emf;
     private EntityManager em;
 
-    public AutobusDao() {
+    public AutobusDao(EntityManager em) {
         emf = Persistence.createEntityManagerFactory("defaultdb");
-        em = emf.createEntityManager();
+        this.em = emf.createEntityManager();
     }
 
     // Metodo per salvare un Autobus nel database

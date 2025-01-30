@@ -8,15 +8,13 @@ import jakarta.persistence.Persistence;
 import java.util.List;
 
 public class AbbonamentoDaoImpl implements AbbonamentoDao {
-<<<<<<< Updated upstream
-	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("trasportiPU");
-=======
 	private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("trasportiPU");
 
+	public AbbonamentoDaoImpl(EntityManager em) {
+	}
 
->>>>>>> Stashed changes
 
-    public void salvaAbbonamento(Abbonamento abbonamento){
+	public void salvaAbbonamento(Abbonamento abbonamento){
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		em.persist(abbonamento);

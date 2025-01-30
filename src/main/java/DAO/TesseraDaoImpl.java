@@ -8,9 +8,14 @@ import jakarta.persistence.Persistence;
 import java.util.List;
 
 public class TesseraDaoImpl implements TesseraDao{
+	private final EntityManager em;
 	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("trasportiPU");
 
-	public void salvaTessera(Tessera tessera) {
+    public TesseraDaoImpl(EntityManager em) {
+		this.em = em;
+    }
+
+    public void salvaTessera(Tessera tessera) {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		em.persist(tessera);

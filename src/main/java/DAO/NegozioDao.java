@@ -9,7 +9,7 @@ public class NegozioDao {
     private EntityManager entityManager;
 
 
-    public NegozioDao() {
+    public NegozioDao(EntityManager em) {
         emf = Persistence.createEntityManagerFactory("rivenditoriPU");
         entityManager = emf.createEntityManager();
     }

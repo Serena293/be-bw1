@@ -10,6 +10,9 @@ import java.util.List;
 public class BigliettoDaoImpl implements BigliettoDao{
 	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("trasportiPU");
 
+	public BigliettoDaoImpl(EntityManager em) {
+	}
+
 	public void salvaBiglietto(Biglietto biglietto){
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();

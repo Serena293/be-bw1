@@ -8,7 +8,7 @@ public class RivenditoriDao {
     private EntityManagerFactory emf;
     private EntityManager entityManager;
 
-    public RivenditoriDao() {
+    public RivenditoriDao(EntityManager em) {
         emf = Persistence.createEntityManagerFactory("rivenditoriPU");
         entityManager = emf.createEntityManager();
     }

@@ -10,7 +10,7 @@ public class DistributoriDao {
     private EntityManager entityManager;
 
 
-    public DistributoriDao() {
+    public DistributoriDao(EntityManager em) {
         emf = Persistence.createEntityManagerFactory("rivenditoriPU");
         entityManager = emf.createEntityManager();
     }
