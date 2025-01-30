@@ -11,7 +11,7 @@ public class TramDao {
 
     private final EntityManager em;
 
-    public TramDao() {
+    public TramDao(EntityManager em) {
 
         this.em = Persistence.createEntityManagerFactory("defaultdb").createEntityManager();
     }

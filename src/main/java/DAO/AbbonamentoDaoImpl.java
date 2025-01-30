@@ -8,9 +8,11 @@ import jakarta.persistence.Persistence;
 import java.util.List;
 
 public class AbbonamentoDaoImpl implements AbbonamentoDao {
-	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("trasportiPU");
+	private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("trasportiPU");
 
-	public void salvaAbbonamento(Abbonamento abbonamento){
+
+
+    public void salvaAbbonamento(Abbonamento abbonamento){
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		em.persist(abbonamento);

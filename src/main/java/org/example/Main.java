@@ -1,5 +1,5 @@
 package org.example;
-//TODO:CONTROLLARE RELAZIONI BIGLIETTI, MEZZI EC..
+
 import DAO.*;
 import Entities.*;
 import jakarta.persistence.EntityManager;
@@ -8,109 +8,95 @@ import jakarta.persistence.Persistence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.time.LocalDate;
-import java.util.Locale;
 import java.util.Scanner;
 import com.github.javafaker.Faker;
 
-
 public class Main {
     public static void main(String[] args) {
+        // Crea l'EntityManager
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("defaultdb");
+        EntityManager em = emf.createEntityManager();
+        Scanner scanner = new Scanner(System.in);
 
+        // Crea un'istanza di Faker per generare dati casuali
+        Faker faker = new Faker();
+        char tipoUtente;
+
+        // Creazione dei DAO
+        AbbonamentoDaoImpl abbonamentoDao = new AbbonamentoDaoImpl(em);
+        AutobusDao autobusDao = new AutobusDao(em);
+        BigliettoDaoImpl bigliettoDao = new BigliettoDaoImpl(em);
+        DistributoriDao distributoriDao = new DistributoriDao(em);
+        MezziDAO mezziDAO = new MezziDAO(em);
+        NegozioDao negozioDao = new NegozioDao(em);
+        RivenditoriDao rivenditoriDao = new RivenditoriDao(em);
+        TramDao tramDao = new TramDao(em);
+        TrattaDAO trattaDAO = new TrattaDAO(em);
+        UtenteSempliceDAO utenteSempliceDAO = new UtenteSempliceDAO(em);
+
+
+
+
+        // 1. Crea un'istanza di Tratta con valori casuali
+        String partenza = faker.address().cityName();
+        String capolinea = faker.address().cityName();
+        double tempoDiPercorrenza = faker.number().randomDouble(2, 30, 120); // Tempo di percorrenza tra 30 e 120 minuti
+        Tratta tratta = new Tratta(partenza, capolinea, tempoDiPercorrenza);
+
+        // 2. Crea un'istanza di Stato (se Stato è un enum, scegli un valore casuale)
+        Mezzi.Stato stato = Mezzi.Stato.values()[faker.number().numberBetween(0, Mezzi.Stato.values().length)]; // Se Stato è un enum
+
+        // 3. Crea un'istanza di Autobus usando la Tratta
+        String descrizione = faker.lorem().sentence(); // Una descrizione casuale
+        Autobus autobus = new Autobus(stato, descrizione, tratta);
+
+        // 4. Stampa i dettagli
+        System.out.println("Tratta: " + tratta.getPartenza() + " -> " + tratta.getCapolinea() + " | Tempo di percorrenza: " + tratta.getTempoDiPercorrenza() + " minuti");
+        System.out.println("Autobus: " + autobus.getDescrizione() + " | Stato: " + autobus.getStato());
+
+        // Avvia una transazione per aggiungere le entità al database
+        em.getTransaction().begin();
+
+        try {
+            // 5. Persisti le entità nel database
+            em.persist(tratta);
+            em.persist(autobus);
+
+            // Commit della transazione
+            em.getTransaction().commit();
+            System.out.println("Le entità sono state salvate nel database.");
+
+        } catch (Exception e) {
+            // Se c'è un errore, rollback della transazione
+            em.getTransaction().rollback();
+            e.printStackTrace();
+        }
+
+        // Ciclo per verificare il tipo di utente
+        while (true) {
+            System.out.println("Premere 1 per amministratore, Premere 2 per utente");
+            tipoUtente = scanner.next().charAt(0);
+
+            if (tipoUtente == '1') {
+                System.out.println("Hai scelto Amministratore");
+                break;
+            } else if (tipoUtente == '2') {
+                System.out.println("Hai scelto Utente");
+                break;
+            } else {
+                System.out.println("Input non valido. Per favore, premi 1 per amministratore o 2 per utente.");
+            }
+        }
+
+        
+
+        // Log dell'avvio dell'applicazione
         final Logger logger = LoggerFactory.getLogger(Main.class);
         logger.info("Applicazione avviata.");
 
-
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("defaultdb");
-        EntityManager em = emf.createEntityManager();
-
-
-
-        Scanner scanner = new Scanner(System.in);
-
-        Tratta tratta1 = new Tratta("Casa", "Lavoro", 20);
-
-// Creazione della tessera prima di usarla
-        Tessera tessera1 = new Tessera(LocalDate.of(2025, 01, 01),
-                LocalDate.of(2025, 06, 01), null, null);  // Passo null per ora
-
-// Ora posso creare abbonamento e utente con la tessera
-        Abbonamento abbonamento1 = new Abbonamento(LocalDate.of(2025, 01, 01),
-                LocalDate.of(2025, 06, 01), "Mario", "Rossi", tessera1);
-        UtenteSemplice utente1 = new UtenteSemplice("Luigi", "Verdi", true, tessera1);
-
-// Setto i valori mancanti sulla tessera
-        tessera1.setAbbonamento(abbonamento1);
-        tessera1.setUtente(utente1);
-
-        Negozi negozio = new Negozi(100, 50, "Tabaccaio", "Via Roma");
-
-        Autobus autobus407 = new Autobus(Mezzi.Stato.InServizio, "blabla", tratta1);
-        Tram tram1 = new Tram(Mezzi.Stato.InManutenzione, "BLA", tratta1);
-
-        Biglietto biglietto1 = new Biglietto(negozio, utente1,false);
-
-
-        //System.out.println(biglietto1);
-
-
-        System.out.println(autobus407);
-       // System.out.println(tram1);
-
-
-
-
-
-
-
-       // Faker faker = new Faker(Locale.ITALY);
-       // String nome = faker.name().fullName();
-       //  System.out.println(nome);
-
-
-        /*
-        Tram tram1 = new Tram(Mezzi.Stato.InServizio, "Centro storico", 100);
-        System.out.println(tram1);
-        //Tutti questi metodi andranno implementati con il dao
-        em.getTransaction().begin();
-        em.persist(tram1);
-        em.getTransaction().commit();
-
-        Autobus autobus1 = new Autobus(Mezzi.Stato.InManutenzione,"Ruote sgonfie", 50);
-        System.out.println(autobus1);
-        em.getTransaction().begin();
-        em.persist(autobus1);
-        em.getTransaction().commit();
-
+        // Chiudi le risorse
+        scanner.close();
         em.close();
         emf.close();
-
- */   /*
-        Tratta tratta1 = new Tratta();
-        tratta1.setCodice_tratta(1L);
-        tratta1.setPartenza("Milano");
-        tratta1.setCapolinea("Roma");
-        tratta1.setTempoDiPercorrenza(6.5);
-
-        AutobusDao autobusDao = new AutobusDao();
-
-        // Creazione di un nuovo Autobus
-        Autobus autobus = new Autobus(Mezzi.Stato.InServizio, "Autobus di linea", tratta1);
-        autobusDao.save(autobus);
-
-        // Recupero di un Autobus per ID
-        Autobus trovato = autobusDao.findById(autobus.getId());
-        System.out.println("Autobus trovato: " + trovato);
-
-        // Aggiornamento di un Autobus
-        autobusDao.update(trovato);
-
-        // Eliminazione di un Autobus
-        autobusDao.delete(trovato.getId());
-
-        // Chiusura del DAO
-        autobusDao.close();
-        */
-     scanner.close();
     }
 }
