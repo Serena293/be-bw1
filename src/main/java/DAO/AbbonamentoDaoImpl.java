@@ -10,9 +10,11 @@ import java.util.List;
 public class AbbonamentoDaoImpl implements AbbonamentoDao {
 	private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("trasportiPU");
 
+	public AbbonamentoDaoImpl(EntityManager em) {
+	}
 
 
-    public void salvaAbbonamento(Abbonamento abbonamento){
+	public void salvaAbbonamento(Abbonamento abbonamento){
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		em.persist(abbonamento);
