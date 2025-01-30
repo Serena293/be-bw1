@@ -12,31 +12,26 @@ public class TrattaDAO {
     private EntityManager em;
 
     public TrattaDAO(EntityManager em) {
-        // Inizializza l'EntityManagerFactory e l'EntityManager
         emf = Persistence.createEntityManagerFactory("defaultdb");
         this.em = emf.createEntityManager();
     }
 
-    // Metodo per salvare una Tratta nel database
     public void save(Tratta tratta) {
         em.getTransaction().begin();
         em.persist(tratta);
         em.getTransaction().commit();
     }
 
-    // Metodo per trovare una Tratta per ID
     public Tratta findById(Long id) {
         return em.find(Tratta.class, id);
     }
 
-    // Metodo per aggiornare una Tratta nel database
     public void update(Tratta tratta) {
         em.getTransaction().begin();
         em.merge(tratta);
         em.getTransaction().commit();
     }
 
-    // Metodo per eliminare una Tratta dal database
     public void delete(Long id) {
         Tratta tratta = findById(id);
         if (tratta != null) {
@@ -46,12 +41,10 @@ public class TrattaDAO {
         }
     }
 
-    // Metodo per ottenere tutte le Tratte dal database
     public List<Tratta> findAll() {
         return em.createQuery("SELECT t FROM Tratta t", Tratta.class).getResultList();
     }
 
-    // Metodo per chiudere l'EntityManager e l'EntityManagerFactory
     public void close() {
         if (em != null) {
             em.close();
@@ -59,5 +52,28 @@ public class TrattaDAO {
         if (emf != null) {
             emf.close();
         }
+    }
+
+    public long getTotalePercorrenze(String startDate, String endDate) {
+        return em.createQuery("SELECT COUNT(t) FROM Tratta t WHERE t.dataPartenza BETWEEN :start AND :end", Long.class)
+            .setParameter("start", startDate)
+            .setParameter("end", endDate)
+            .getSingleResult();
+    }
+
+    public long getTotalePercorrenzePerMezzo(Long mezzoId, String startDate, String endDate) {
+        return em.createQuery("SELECT COUNT(t) FROM Tratta t WHERE t.mezzo.id = :mezzoId AND t.dataPartenza BETWEEN :start AND :end", Long.class)
+            .setParameter("mezzoId", mezzoId)
+            .setParameter("start", startDate)
+            .setParameter("end", endDate)
+            .getSingleResult();
+    }
+
+    public double getTempoMedioPercorrenza(Long mezzoId, String startDate, String endDate) {
+        return em.createQuery("SELECT AVG(t.tempoEffettivo) FROM Tratta t WHERE t.mezzo.id = :mezzoId AND t.dataPartenza BETWEEN :start AND :end", Double.class)
+            .setParameter("mezzoId", mezzoId)
+            .setParameter("start", startDate)
+            .setParameter("end", endDate)
+            .getSingleResult();
     }
 }

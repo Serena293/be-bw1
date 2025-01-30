@@ -5,6 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="45fe0e0e-4496-44d0-be39-ab9e1c258823" name="Changes" comment="SetUp">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/application.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/application.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/AbbonamentoDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/AbbonamentoDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/AbbonamentoDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/AbbonamentoDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/BigliettoDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/BigliettoDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/BigliettoDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/BigliettoDaoImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/MezziDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/MezziDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/DAO/TrattaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/DAO/TrattaDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Entities/Biglietto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Entities/Biglietto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -36,6 +45,7 @@
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$/../be-buldWild1" value="Serena-8" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -52,6 +62,9 @@
     &quot;accountId&quot;: &quot;239d5d18-51c8-4c0b-93e6-f59b25509a26&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>

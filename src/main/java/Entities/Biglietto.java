@@ -2,13 +2,15 @@ package Entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "biglietti")
 public class Biglietto implements Accesso {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
 	private Long codiceUnivoco;
 
 	@ManyToOne
@@ -26,27 +28,19 @@ public class Biglietto implements Accesso {
 	@JoinColumn(name = "mezzo_id", nullable = false)
 	private Mezzi mezzi;
 
-	public Mezzi getMezzi() {
-		return mezzi;
+	@Column(nullable = false)
+	private LocalDateTime dataEmissione;
+
+	@Column(nullable = false)
+	private LocalDateTime dataVidimazione;
+
+
+	public Rivenditori getRivenditore() {
+		return rivenditore;
 	}
 
-	public void setMezzi(Mezzi mezzi) {
-		this.mezzi = mezzi;
-	}
-
-	// Costruttori
-	public Biglietto() {}
-
-	public Biglietto(Rivenditori rivenditore, Utente utente, boolean annullato) {
+	public void setRivenditore(Rivenditori rivenditore) {
 		this.rivenditore = rivenditore;
-		this.utente = utente;
-		this.annullato = annullato;
-	}
-
-	// Implementazione dei metodi di Accesso
-	@Override
-	public Long getCodiceUnivoco() {
-		return codiceUnivoco;
 	}
 
 	public Utente getUtente() {
@@ -57,16 +51,36 @@ public class Biglietto implements Accesso {
 		this.utente = utente;
 	}
 
-	public Rivenditori getRivenditore() {
-		return rivenditore;
-	}
-
-	public void setRivenditore(Rivenditori rivenditore) {
-		this.rivenditore = rivenditore;
+	public boolean isAnnullato() {
+		return annullato;
 	}
 
 	public void setAnnullato(boolean annullato) {
 		this.annullato = annullato;
+	}
+
+	public Mezzi getMezzi() {
+		return mezzi;
+	}
+
+	public void setMezzi(Mezzi mezzi) {
+		this.mezzi = mezzi;
+	}
+
+	public LocalDate getDataEmissione() {
+		return LocalDate.from(dataEmissione);
+	}
+
+	public void setDataEmissione(LocalDate dataEmissione) {
+		this.dataEmissione = LocalDateTime.from(dataEmissione);
+	}
+
+	public LocalDate getDataVidimazione() {
+		return LocalDate.from(dataVidimazione);
+	}
+
+	public void setDataVidimazione(LocalDate dataVidimazione) {
+		this.dataVidimazione = LocalDateTime.from(dataVidimazione);
 	}
 
 	@Override
@@ -74,19 +88,20 @@ public class Biglietto implements Accesso {
 		this.codiceUnivoco = codice;
 	}
 
-	public void annulla() {
-		this.annullato = true;
+	@Override
+	public Long getCodiceUnivoco() {
+		return codiceUnivoco;
 	}
 
-	public boolean isAnnullato() {
-		return annullato;
+	public void annulla() {
+		this.annullato = true;
 	}
 
 	@Override
 	public String toString() {
 		return "Biglietto{" +
-				"codiceUnivoco=" + codiceUnivoco +
-				", annullato=" + annullato +
-				'}';
+			"codiceUnivoco=" + codiceUnivoco +
+			", annullato=" + annullato +
+			'}';
 	}
 }

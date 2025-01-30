@@ -10,22 +10,22 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Scanner;
 import com.github.javafaker.Faker;
+import java.util.List;
 
 public class Main {
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+
     public static void main(String[] args) {
-        // Crea l'EntityManager
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("defaultdb");
         EntityManager em = emf.createEntityManager();
         Scanner scanner = new Scanner(System.in);
 
-        // Crea un'istanza di Faker per generare dati casuali
         Faker faker = new Faker();
-        char tipoUtente;
 
-        // Creazione dei DAO
         AbbonamentoDaoImpl abbonamentoDao = new AbbonamentoDaoImpl(em);
-        AutobusDao autobusDao = new AutobusDao(em);
+        TesseraDaoImpl tesseraDao = new TesseraDaoImpl(em);
         BigliettoDaoImpl bigliettoDao = new BigliettoDaoImpl(em);
+        AutobusDao autobusDao = new AutobusDao(em);
         DistributoriDao distributoriDao = new DistributoriDao(em);
         MezziDAO mezziDAO = new MezziDAO(em);
         NegozioDao negozioDao = new NegozioDao(em);
@@ -34,71 +34,235 @@ public class Main {
         TrattaDAO trattaDAO = new TrattaDAO(em);
         UtenteSempliceDAO utenteSempliceDAO = new UtenteSempliceDAO(em);
 
+        ValidationService validationService = new ValidationService(abbonamentoDao, tesseraDao);
 
-
-
-        // 1. Crea un'istanza di Tratta con valori casuali
         String partenza = faker.address().cityName();
         String capolinea = faker.address().cityName();
-        double tempoDiPercorrenza = faker.number().randomDouble(2, 30, 120); // Tempo di percorrenza tra 30 e 120 minuti
+        double tempoDiPercorrenza = faker.number().randomDouble(2, 30, 120);
         Tratta tratta = new Tratta(partenza, capolinea, tempoDiPercorrenza);
 
-        // 2. Crea un'istanza di Stato (se Stato è un enum, scegli un valore casuale)
-        Mezzi.Stato stato = Mezzi.Stato.values()[faker.number().numberBetween(0, Mezzi.Stato.values().length)]; // Se Stato è un enum
+        Mezzi.Stato stato = Mezzi.Stato.values()[faker.number().numberBetween(0, Mezzi.Stato.values().length)];
 
-        // 3. Crea un'istanza di Autobus usando la Tratta
-        String descrizione = faker.lorem().sentence(); // Una descrizione casuale
+        String descrizione = faker.lorem().sentence();
         Autobus autobus = new Autobus(stato, descrizione, tratta);
 
-        // 4. Stampa i dettagli
         System.out.println("Tratta: " + tratta.getPartenza() + " -> " + tratta.getCapolinea() + " | Tempo di percorrenza: "
             + tratta.getTempoDiPercorrenza() + " minuti");
         System.out.println("Autobus: " + autobus.getDescrizione() + " | Stato: " + autobus.getStato());
 
-        // Avvia una transazione per aggiungere le entità al database
         em.getTransaction().begin();
 
         try {
-            // 5. Persisti le entità nel database
             em.persist(tratta);
             em.persist(autobus);
-
-            // Commit della transazione
             em.getTransaction().commit();
             System.out.println("Le entità sono state salvate nel database.");
-
         } catch (Exception e) {
-            // Se c'è un errore, rollback della transazione
             em.getTransaction().rollback();
             e.printStackTrace();
         }
 
-        // Ciclo per verificare il tipo di utente
         while (true) {
-            System.out.println("Premere 1 per amministratore, Premere 2 per utente");
-            tipoUtente = scanner.next().charAt(0);
+            System.out.println("\nSeleziona il tipo di utente:");
+            System.out.println("1. Utente semplice");
+            System.out.println("2. Utente amministratore");
+            System.out.print("Seleziona un'operazione: ");
 
-            if (tipoUtente == '1') {
-                System.out.println("Hai scelto Amministratore");
-                break;
-            } else if (tipoUtente == '2') {
-                System.out.println("Hai scelto Utente");
-                break;
-            } else {
-                System.out.println("Input non valido. Per favore, premi 1 per amministratore o 2 per utente.");
+            int tipoUtente = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (tipoUtente) {
+                case 1 -> gestioneUtenteSemplice(scanner, em, validationService, bigliettoDao);
+                case 2 -> gestioneAmministratore(scanner, em, abbonamentoDao, bigliettoDao, mezziDAO, trattaDAO);
+                default -> System.out.println("Scelta non valida.");
             }
-
-            //inizio operazioni in base alla scelta
-
         }
-        
-        // Log dell'avvio dell'applicazione
-        final Logger logger = LoggerFactory.getLogger(Main.class);
-        logger.info("Applicazione avviata.");
+    }
+    private static void gestioneUtenteSemplice(Scanner scanner, EntityManager em, ValidationService validationService, BigliettoDao bigliettoDao) {
+        boolean tesseraAttiva = false;
+        String numeroTessera = "";
+        String nomeTessera = "";
+        String cognomeTessera = "";
 
-        // Chiudi le risorse
-        scanner.close();
-        em.close();
-        emf.close();
+        while (true) {
+            System.out.println("\nMenu utente semplice:");
+            System.out.println("1. Acquista biglietto");
+            System.out.println("2. Acquista abbonamento");
+            System.out.println("0. Torna al menu principale");
+            System.out.print("Seleziona un'operazione: ");
+
+            int scelta = scanner.nextInt();
+            scanner.nextLine();
+
+            try {
+                switch (scelta) {
+                    case 1 -> acquistaBiglietto(scanner, em, validationService, bigliettoDao, tesseraAttiva, numeroTessera);
+                    case 2 -> tesseraAttiva = acquistaAbbonamento(scanner, em, validationService, tesseraAttiva);
+                    case 0 -> {
+                        return;
+                    }
+                    default -> System.out.println("Scelta non valida.");
+                }
+            } catch (Exception e) {
+                System.err.println("Errore: " + e.getMessage());
+            }
+        }
+    }
+
+    private static void acquistaBiglietto(Scanner scanner, EntityManager em, ValidationService validationService, BigliettoDao bigliettoDao, boolean tesseraAttiva, String numeroTessera) {
+        System.out.println("Hai una tessera attiva? (si/no)");
+        String risposta = scanner.nextLine();
+        if (risposta.equalsIgnoreCase("si")) {
+            if (tesseraAttiva) {
+                System.out.println("Tessera attiva. Procedi con l'acquisto del biglietto singolo.");
+            } else {
+                System.out.println("Inserisci il numero della tessera per il controllo:");
+                numeroTessera = scanner.nextLine();
+                if (validationService.verificaTessera(Long.parseLong(numeroTessera))) {
+                    tesseraAttiva = true;
+                    System.out.println("Tessera verificata e attiva. Procedi con l'acquisto del biglietto singolo.");
+                } else {
+                    System.out.println("Tessera non attiva. Devi attivarla.");
+                }
+            }
+        } else {
+            System.out.println("Vuoi creare una tessera? (si/no)");
+            String creaTessera = scanner.nextLine();
+            if (creaTessera.equalsIgnoreCase("si")) {
+                System.out.println("Inserisci il nome:");
+                String nomeTessera = scanner.nextLine();
+                System.out.println("Inserisci il cognome:");
+                String cognomeTessera = scanner.nextLine();
+                System.out.println("Inserisci il numero della tessera:");
+                numeroTessera = scanner.nextLine();
+                tesseraAttiva = true;
+                System.out.println("Tessera creata e attivata.");
+            }
+        }
+        System.out.println("Biglietto singolo acquistato.");
+    }
+
+    private static boolean acquistaAbbonamento(Scanner scanner, EntityManager em, ValidationService validationService, boolean tesseraAttiva) {
+        if (!tesseraAttiva) {
+            System.out.println("Devi attivare la tessera per acquistare un abbonamento.");
+            System.out.println("Vuoi creare una tessera? (si/no)");
+            String creaTessera = scanner.nextLine();
+            if (creaTessera.equalsIgnoreCase("si")) {
+                System.out.println("Inserisci il nome:");
+                String nomeTessera = scanner.nextLine();
+                System.out.println("Inserisci il cognome:");
+                String cognomeTessera = scanner.nextLine();
+                System.out.println("Inserisci il numero della tessera:");
+                String numeroTessera = scanner.nextLine();
+                tesseraAttiva = true;
+                System.out.println("Tessera creata e attivata.");
+            } else {
+                System.out.println("Operazione annullata.");
+                return false;
+            }
+        }
+        System.out.println("Seleziona il tipo di abbonamento:");
+        System.out.println("1. Settimanale");
+        System.out.println("2. Mensile");
+        int tipoAbbonamento = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Abbonamento " + (tipoAbbonamento == 1 ? "settimanale" : "mensile") + " acquistato.");
+        return tesseraAttiva;
+    }
+
+    private static void visualizzaStatisticheTratte(Scanner scanner, TrattaDAO trattaDAO) {
+        System.out.println("Inserisci la data di inizio (yyyy-MM-dd):");
+        String startDate = scanner.nextLine();
+        System.out.println("Inserisci la data di fine (yyyy-MM-dd):");
+        String endDate = scanner.nextLine();
+        System.out.println("Inserisci l'ID del mezzo (o lascia vuoto per tutte le tratte):");
+        String mezzoIdInput = scanner.nextLine();
+
+        long totalePercorrenze;
+        double tempoMedioPercorrenza;
+        if (mezzoIdInput.isEmpty()) {
+            totalePercorrenze = trattaDAO.getTotalePercorrenze(startDate, endDate);
+            System.out.println("Totale percorrenze nel periodo specificato: " + totalePercorrenze);
+        } else {
+            Long mezzoId = Long.parseLong(mezzoIdInput);
+            totalePercorrenze = trattaDAO.getTotalePercorrenzePerMezzo(mezzoId, startDate, endDate);
+            tempoMedioPercorrenza = trattaDAO.getTempoMedioPercorrenza(mezzoId, startDate, endDate);
+            System.out.println("Totale percorrenze per il mezzo " + mezzoId + " nel periodo specificato: " + totalePercorrenze);
+            System.out.println("Tempo medio di percorrenza per il mezzo " + mezzoId + ": " + tempoMedioPercorrenza + " minuti");
+        }
+    }
+
+    private static void gestioneAmministratore(Scanner scanner, EntityManager em, AbbonamentoDao abbonamentoDao, BigliettoDao bigliettoDao, MezziDAO mezziDAO, TrattaDAO trattaDAO) {
+        while (true) {
+            System.out.println("\nMenu amministratore:");
+            System.out.println("1. Visualizza biglietti/abbonamenti venduti");
+            System.out.println("2. Visualizza periodo di servizio/manutenzione dei mezzi");
+            System.out.println("3. Visualizza biglietti vidimati");
+            System.out.println("4. Visualizza statistiche sulle tratte");
+            System.out.println("0. Torna al menu principale");
+            System.out.print("Seleziona un'operazione: ");
+
+            int scelta = scanner.nextInt();
+            scanner.nextLine(); // Consuma il newline
+
+            try {
+                switch (scelta) {
+                    case 1 -> visualizzaBigliettiAbbonamentiVenduti(scanner, bigliettoDao, abbonamentoDao);
+                    case 2 -> visualizzaPeriodoServizioManutenzione(scanner, mezziDAO);
+                    case 3 -> visualizzaBigliettiVidimati(scanner, bigliettoDao);
+                    case 4 -> visualizzaStatisticheTratte(scanner, trattaDAO);
+                    case 0 -> {
+                        return;
+                    }
+                    default -> System.out.println("Scelta non valida.");
+                }
+            } catch (Exception e) {
+                System.err.println("Errore: " + e.getMessage());
+            }
+        }
+    }
+
+    private static void visualizzaBigliettiAbbonamentiVenduti(Scanner scanner, BigliettoDao bigliettoDao, AbbonamentoDao abbonamentoDao) {
+        System.out.println("Inserisci la data di inizio (yyyy-MM-dd):");
+        String startDate = scanner.nextLine();
+        System.out.println("Inserisci la data di fine (yyyy-MM-dd):");
+        String endDate = scanner.nextLine();
+
+        long totaleBiglietti = bigliettoDao.getTotaleBigliettiVenduti(startDate, endDate);
+        long totaleAbbonamenti = abbonamentoDao.getTotaleAbbonamentiVenduti(startDate, endDate);
+
+        System.out.println("Totale biglietti venduti: " + totaleBiglietti);
+        System.out.println("Totale abbonamenti venduti: " + totaleAbbonamenti);
+    }
+
+    private static void visualizzaPeriodoServizioManutenzione(Scanner scanner, MezziDAO mezziDAO) {
+        System.out.println("Inserisci la data di inizio (yyyy-MM-dd):");
+        String startDate = scanner.nextLine();
+        System.out.println("Inserisci la data di fine (yyyy-MM-dd):");
+        String endDate = scanner.nextLine();
+
+        List<Mezzi> mezziInServizio = mezziDAO.findInServicePeriod(startDate, endDate);
+        List<Mezzi> mezziInManutenzione = mezziDAO.findInMaintenancePeriod(startDate, endDate);
+
+        System.out.println("Mezzi in servizio nel periodo specificato:");
+        for (Mezzi mezzo : mezziInServizio) {
+            System.out.println("ID Mezzo: " + mezzo.getId() + ", Stato: " + mezzo.getStato());
+        }
+
+        System.out.println("Mezzi in manutenzione nel periodo specificato:");
+        for (Mezzi mezzo : mezziInManutenzione) {
+            System.out.println("ID Mezzo: " + mezzo.getId() + ", Stato: " + mezzo.getStato());
+        }
+    }
+
+    private static void visualizzaBigliettiVidimati(Scanner scanner, BigliettoDao bigliettoDao) {
+        System.out.println("Inserisci la data di inizio (yyyy-MM-dd):");
+        String startDate = scanner.nextLine();
+        System.out.println("Inserisci la data di fine (yyyy-MM-dd):");
+        String endDate = scanner.nextLine();
+
+        long totaleBigliettiVidimati = bigliettoDao.getTotaleBigliettiVidimati(startDate, endDate);
+
+        System.out.println("Totale biglietti vidimati nel periodo specificato: " + totaleBigliettiVidimati);
     }
 }

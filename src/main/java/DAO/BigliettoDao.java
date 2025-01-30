@@ -9,4 +9,7 @@ public interface BigliettoDao {
 	List<Biglietto> bigliettiEmessiInPeriodo(String startDate, String endDate);
 	void annullaBiglietto(Long codice);
 
+	long getTotaleBigliettiVenduti(String startDate, String endDate);
+
+	long getTotaleBigliettiVidimati(String startDate, String endDate);
 }

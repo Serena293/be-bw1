@@ -12,12 +12,10 @@ public class MezziDAO {
     private static final Logger logger = LoggerFactory.getLogger(MezziDAO.class);
     private EntityManager em;
 
-    // Costruttore
     public MezziDAO(EntityManager em) {
         this.em = em;
     }
 
-    // Metodo per salvare un mezzo
     public void save(Mezzi mezzo) {
         EntityTransaction tx = em.getTransaction();
         try {
@@ -33,7 +31,6 @@ public class MezziDAO {
         }
     }
 
-    // Metodo per trovare un mezzo per ID
     public Mezzi findById(Long id) {
         Mezzi mezzo = em.find(Mezzi.class, id);
         if (mezzo != null) {
@@ -44,7 +41,6 @@ public class MezziDAO {
         return mezzo;
     }
 
-    // Metodo per aggiornare un mezzo
     public void update(Mezzi mezzo) {
         EntityTransaction tx = em.getTransaction();
         try {
@@ -60,7 +56,6 @@ public class MezziDAO {
         }
     }
 
-    // Metodo per eliminare un mezzo
     public void delete(Long id) {
         EntityTransaction tx = em.getTransaction();
         try {
@@ -81,7 +76,6 @@ public class MezziDAO {
         }
     }
 
-    // Metodo per ottenere tutti i mezzi
     public List<Mezzi> findAll() {
         try {
             List<Mezzi> mezzi = em.createQuery("SELECT m FROM Mezzi m", Mezzi.class).getResultList();
@@ -89,6 +83,34 @@ public class MezziDAO {
             return mezzi;
         } catch (Exception e) {
             logger.error("Errore nel recupero dei mezzi", e);
+            return null;
+        }
+    }
+
+    public List<Mezzi> findInServicePeriod(String startDate, String endDate) {
+        try {
+            List<Mezzi> mezzi = em.createQuery("SELECT m FROM Mezzi m WHERE m.dataInizioServizio <= :end AND m.dataFineServizio >= :start", Mezzi.class)
+                .setParameter("start", startDate)
+                .setParameter("end", endDate)
+                .getResultList();
+            logger.info("Recuperati " + mezzi.size() + " mezzi in servizio nel periodo specificato.");
+            return mezzi;
+        } catch (Exception e) {
+            logger.error("Errore nel recupero dei mezzi in servizio", e);
+            return null;
+        }
+    }
+
+    public List<Mezzi> findInMaintenancePeriod(String startDate, String endDate) {
+        try {
+            List<Mezzi> mezzi = em.createQuery("SELECT m FROM Mezzi m WHERE m.dataInizioManutenzione <= :end AND m.dataFineManutenzione >= :start", Mezzi.class)
+                .setParameter("start", startDate)
+                .setParameter("end", endDate)
+                .getResultList();
+            logger.info("Recuperati " + mezzi.size() + " mezzi in manutenzione nel periodo specificato.");
+            return mezzi;
+        } catch (Exception e) {
+            logger.error("Errore nel recupero dei mezzi in manutenzione", e);
             return null;
         }
     }
