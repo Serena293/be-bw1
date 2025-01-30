@@ -81,9 +81,90 @@ public class Main {
         }
     }
 
-        // Chiudi le risorse
-        scanner.close();
-        em.close();
-        emf.close();
+    private static void gestisciAmministratore(Scanner scanner, DistributoriDao distributoriDao, MezziDAO mezziDAO) {
+        while (true) {
+            System.out.println("Scegli un'opzione: 1. Controlla Distributori, 2. Controlla Mezzi, 3. Torna alla scelta iniziale");
+            String input = scanner.next();
+
+            switch (input) {
+                case "1":
+                    System.out.println("Hai scelto Controlla Distributori");
+                    // Logica per controllare i distributori
+                    break;
+                case "2":
+                    System.out.println("Hai scelto Controlla Mezzi");
+                    // Logica per controllare i mezzi
+                    break;
+                case "3":
+                    System.out.println("Torna alla scelta iniziale.");
+                    return;
+                default:
+                    System.out.println("Input non valido.");
+                    break;
+            }
+        }
+    }
+
+    private static void gestisciUtente(Scanner scanner, UtenteSempliceDAO utenteSempliceDAO, AbbonamentoDaoImpl abbonamentoDao) {
+        while (true) {
+            System.out.println("Hai la tessera? (SI/NO)");
+            String rispostaTessera = scanner.next().toUpperCase();
+
+            if (rispostaTessera.equals("SI")) {
+                System.out.println("Inserisci il numero della tessera:");
+                String numeroTessera = scanner.next();
+                System.out.println("La tessera è attiva? (SI/NO)");
+                String tesseraAttiva = scanner.next().toUpperCase();
+
+                if (tesseraAttiva.equals("SI")) {
+                    System.out.println("Scegli il tipo di abbonamento: 1. Settimanale, 2. Mensile");
+                    int sceltaAbbonamento = scanner.nextInt();
+                    switch (sceltaAbbonamento) {
+                        case 1:
+                            System.out.println("Hai scelto l'abbonamento Settimanale");
+                            // Logica per l'abbonamento settimanale
+                            break;
+                        case 2:
+                            System.out.println("Hai scelto l'abbonamento Mensile");
+                            // Logica per l'abbonamento mensile
+                            break;
+                        default:
+                            System.out.println("Scelta non valida.");
+                            break;
+                    }
+                } else {
+                    System.out.println("La tessera non è attiva.");
+                }
+            }else if (rispostaTessera.equals("NO")) {
+                System.out.println("Vuoi fare la tessera? (SI/NO)");
+                String creaTessera = scanner.next().toUpperCase();
+                if (creaTessera.equals("SI")) {
+                    System.out.println("Tessera creata.");
+                    // Logica per creare la tessera
+                } else {
+                    System.out.println("Vuoi fare un biglietto? (SI/NO)");
+                    String creaBiglietto = scanner.next().toUpperCase();
+                    if (creaBiglietto.equals("SI")) {
+                        System.out.println("Per quale mezzo? (autobus/tram)");
+                        String mezzo = scanner.next().toUpperCase();
+                        if (mezzo.equals("AUTOBUS")) {
+                            System.out.println("Biglietto per autobus creato.");
+                            // Logica per creare il biglietto per autobus
+                        } else if (mezzo.equals("TRAM")) {
+                            System.out.println("Biglietto per tram creato.");
+                            // Logica per creare il biglietto per tram
+                        } else {
+                            System.out.println("Mezzo non valido. Riprova.");
+                        }
+                    } else if (creaBiglietto.equals("NO")) {
+                        System.out.println("Operazione terminata.");
+                    } else {
+                        System.out.println("Input non valido. Riprova.");
+                    }
+                }
+            } else {
+                System.out.println("Input non valido.");
+            }
+        }
     }
 }
