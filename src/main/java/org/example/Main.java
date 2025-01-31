@@ -1,5 +1,6 @@
 package org.example;
 
+import AltreClassi.PercorriTratta;
 import DAO.*;
 import Entities.*;
 import jakarta.persistence.EntityManager;
@@ -52,7 +53,6 @@ public class Main {
         System.out.println("Autobus: " + autobus.getDescrizione() + " | Stato: " + autobus.getStato());
 
         em.getTransaction().begin();
-
         try {
             em.persist(tratta);
             em.persist(autobus);

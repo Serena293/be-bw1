@@ -15,7 +15,7 @@ public class NegozioDao {
     }
 
 
-    public void addNegozio(Negozi negozio) {
+    public void save(Negozi negozio) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
@@ -41,7 +41,7 @@ public class NegozioDao {
     }
 
 
-    public void updateNegozio(Negozi negozio) {
+    public void update(Negozi negozio) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();
@@ -56,7 +56,7 @@ public class NegozioDao {
     }
 
 
-    public void deleteNegozio(int id) {
+    public void delete(int id) {
         EntityTransaction transaction = entityManager.getTransaction();
         try {
             transaction.begin();

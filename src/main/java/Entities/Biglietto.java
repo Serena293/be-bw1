@@ -2,8 +2,7 @@ package Entities;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.Scanner;
 
 @Entity
 @Table(name = "biglietti")
@@ -104,4 +103,30 @@ public class Biglietto implements Accesso {
 			", annullato=" + annullato +
 			'}';
 	}
+
+	public void  partenza (){
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Da dove vuoi partire?");
+		System.out.println("Napoli, Roma, Milano");
+
+		String cittaPartenza = scanner.next();
+
+		switch (cittaPartenza){
+			case "Napoli":
+				System.out.println("Da Napoli puoi comprare un biglietto per Salerno");
+				break;
+			case "Roma":
+				System.out.println("Da Roma puoi comprare un biglietto per Firenze");
+				break;
+			case "Milano":
+				System.out.println("Da Milano puoi comprare un biglietto per Bologna");
+				break;
+			default:
+				System.out.println("Ci dispiace ma non abbiamo biglietti da questa destinazione");
+		}
+	}
+
+
+
 }
+

@@ -4,12 +4,17 @@ import Entities.Autobus;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
 
 public class AutobusDao {
 
     private EntityManagerFactory emf;
     private EntityManager em;
+
+    private static final Logger logger = LoggerFactory.getLogger(AutobusDao.class);
 
     public AutobusDao(EntityManager em) {
         emf = Persistence.createEntityManagerFactory("defaultdb");
@@ -21,6 +26,8 @@ public class AutobusDao {
         em.getTransaction().begin();
         em.persist(autobus);
         em.getTransaction().commit();
+
+        logger.info("Autobus salvato nel DB");
     }
 
     // Metodo per trovare un Autobus per ID
@@ -33,6 +40,7 @@ public class AutobusDao {
         em.getTransaction().begin();
         em.merge(autobus);
         em.getTransaction().commit();
+        logger.info("L'istanza autobus è stata modificata");
     }
 
     // Metodo per eliminare un Autobus dal database
@@ -42,6 +50,7 @@ public class AutobusDao {
             em.getTransaction().begin();
             em.remove(autobus);
             em.getTransaction().commit();
+            logger.info("Autobus eliminato dal  DB!");
         }
     }
 

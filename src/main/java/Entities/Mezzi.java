@@ -11,6 +11,8 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Mezzi {
 
+    private static final Logger logger = LoggerFactory.getLogger(Mezzi.class);
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,6 +20,8 @@ public abstract class Mezzi {
     @Enumerated(EnumType.STRING)
     private Stato stato;
     private String descrizione;
+
+    private int numeroPercorrenze;
 
     //Ogni tratta può essere percorsa da più mezzi contemporaneamente, quindi la relazione è molti ad uno
     @ManyToOne
@@ -50,8 +54,14 @@ public abstract class Mezzi {
     public void setPeriodi(List<Periodo> periodi) {
         this.periodi = periodi;
     }
+    public int getNumeroPercorrenze() {
+        return numeroPercorrenze;
+    }
 
-    private static final Logger logger = LoggerFactory.getLogger(Mezzi.class);
+    public void setNumeroPercorrenze(int numeroPercorrenze) {
+        this.numeroPercorrenze = numeroPercorrenze;
+    }
+
 
 
     // Costruttore vuoto
@@ -61,6 +71,7 @@ public abstract class Mezzi {
     public Mezzi(Stato stato, String descrizione) {
         this.stato = stato;
         this.descrizione = descrizione;
+        this.numeroPercorrenze = 0;
     }
 
     public Mezzi(Stato stato, String descrizione, Tratta tratta) {
@@ -96,6 +107,12 @@ public abstract class Mezzi {
         this.id = id;
     }
 
+    //metodo per incrementare il numero di percorrenze
+    public void incrementaPercorrenza() {
+        this.numeroPercorrenze++;
+        logger.info("Numero di percorrenze aumentato di 1, totale: " + numeroPercorrenze);
+    }
+
     public enum Stato {
         InManutenzione,
         InServizio
@@ -123,5 +140,7 @@ public abstract class Mezzi {
             }
 
         }
+
+
     }
 }

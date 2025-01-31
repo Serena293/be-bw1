@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Scanner;
 
 @Entity
 @Table(name = "tessere")
@@ -105,5 +106,54 @@ public class Tessera {
 			utente.setTessera(this);
 		}
 	}
+	public void creaTessera() {
+		Scanner scanner = new Scanner(System.in);
+
+		System.out.println("Inserisci nome: ");
+		String nomeUtente = scanner.next();
+
+		System.out.println("Inserisci cognome: ");
+		String cognomeUtente = scanner.next();
+
+		// Creazione delle date
+		LocalDate dataInizio = LocalDate.now();
+		LocalDate dataFine = dataInizio.plusMonths(6);
+
+		// Creazione dell'abbonamento (senza tessera per ora)
+		Abbonamento abbonamento = new Abbonamento(dataInizio, dataFine, nomeUtente, cognomeUtente, null);
+		UtenteSemplice utenteSemplice = new UtenteSemplice(nomeUtente, cognomeUtente, true, null);
+
+		// Creazione della tessera con l'abbonamento
+		Tessera tessera = new Tessera(dataInizio, dataFine, abbonamento, utenteSemplice);
+
+		// Aggiorniamo l'abbonamento con la tessera
+		abbonamento.setTessera(tessera);
+		utenteSemplice.setTessera(tessera);
+
+		// Salvataggio nel database
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("defaultdb");
+		EntityManager em = emf.createEntityManager();
+		try {
+			em.getTransaction().begin();
+			em.persist(utenteSemplice);
+			em.persist(tessera);
+			em.persist(abbonamento);
+			em.getTransaction().commit();
+
+			// Hibernate ora ha generato gli ID, possiamo stamparli
+			System.out.println("Tessera e abbonamento salvati con successo!");
+			System.out.println("ID Utente: " + utenteSemplice.getUtente_id());
+			System.out.println("ID Tessera: " + tessera.getNumeroTessera());
+			System.out.println("ID Abbonamento: " + abbonamento.getCodiceUnivoco());
+			System.out.println("Nome: " + utenteSemplice.getNome() + " " + utenteSemplice.getCognome());
+				} catch (Exception e) {
+			em.getTransaction().rollback();
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+	}
+
+
 
 }
