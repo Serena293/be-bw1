@@ -80,12 +80,7 @@ public class Main {
         }
     }
 
-    private static void gestioneUtenteSemplice(Scanner scanner, EntityManager em, ValidationService validationService, BigliettoDao bigliettoDao) {
-        boolean tesseraAttiva = false;
-        String numeroTessera = "";
-        String nomeTessera = "";
-        String cognomeTessera = "";
-
+    private static void gestioneUtenteSemplice(Scanner scanner, EntityManager em, ValidationService validationService, BigliettoDao bigliettoDao, TesseraDao tesseraDao) {
         while (true) {
             System.out.println("\nMenu utente semplice:");
             System.out.println("1. Acquista biglietto");
@@ -98,8 +93,8 @@ public class Main {
 
             try {
                 switch (scelta) {
-                    case 1 -> acquistaBiglietto(scanner, em, validationService, bigliettoDao, tesseraAttiva, numeroTessera);
-                    case 2 -> tesseraAttiva = acquistaAbbonamento(scanner, em, validationService, tesseraAttiva);
+                    case 1 -> acquistaBiglietto(scanner, em, validationService, bigliettoDao);
+                    case 2 -> acquistaAbbonamento(scanner, em, validationService, tesseraDao);
                     case 0 -> {
                         return;
                     }
@@ -111,42 +106,33 @@ public class Main {
         }
     }
 
-    private static void acquistaBiglietto(Scanner scanner, EntityManager em, ValidationService validationService, BigliettoDao bigliettoDao, boolean tesseraAttiva, String numeroTessera) {
+    private static void acquistaBiglietto(Scanner scanner, EntityManager em, ValidationService validationService, BigliettoDao bigliettoDao) {
         System.out.println("Hai una tessera attiva? (si/no)");
         String risposta = scanner.nextLine();
+
         if (risposta.equalsIgnoreCase("si")) {
-            if (tesseraAttiva) {
-                System.out.println("Tessera attiva. Procedi con l'acquisto del biglietto singolo.");
+            System.out.println("Inserisci il numero della tessera per il controllo:");
+            String numeroTessera = scanner.nextLine();
+            if (validationService.verificaTessera(Long.parseLong(numeroTessera))) {
+                System.out.println("Tessera verificata e attiva. Procedi con l'acquisto del biglietto singolo.");
             } else {
-                System.out.println("Inserisci il numero della tessera per il controllo:");
-                numeroTessera = scanner.nextLine();
-                if (validationService.verificaTessera(Long.parseLong(numeroTessera))) {
-                    tesseraAttiva = true;
-                    System.out.println("Tessera verificata e attiva. Procedi con l'acquisto del biglietto singolo.");
-                } else {
-                    System.out.println("Tessera non attiva. Devi attivarla.");
-                }
+                System.out.println("Tessera non attiva o scaduta. Procedi comunque con l'acquisto del biglietto singolo.");
             }
         } else {
-            System.out.println("Vuoi creare una tessera? (si/no)");
-            String creaTessera = scanner.nextLine();
-            if (creaTessera.equalsIgnoreCase("si")) {
-                System.out.println("Inserisci il nome:");
-                String nomeTessera = scanner.nextLine();
-                System.out.println("Inserisci il cognome:");
-                String cognomeTessera = scanner.nextLine();
-                System.out.println("Inserisci il numero della tessera:");
-                numeroTessera = scanner.nextLine();
-                tesseraAttiva = true;
-                System.out.println("Tessera creata e attivata.");
-            }
+            System.out.println("Procedi con l'acquisto del biglietto singolo senza tessera.");
         }
+
+        // Logica per l'acquisto del biglietto singolo
+        // bigliettoDao.salvaBiglietto(nuovoBiglietto);
+
         System.out.println("Biglietto singolo acquistato.");
     }
 
-    private static boolean acquistaAbbonamento(Scanner scanner, EntityManager em, ValidationService validationService, boolean tesseraAttiva) {
-        if (!tesseraAttiva) {
-            System.out.println("Devi attivare la tessera per acquistare un abbonamento.");
+    private static boolean acquistaAbbonamento(Scanner scanner, EntityManager em, ValidationService validationService, TesseraDao tesseraDao) {
+        System.out.println("Hai una tessera? (si/no)");
+        String risposta = scanner.nextLine();
+
+        if (risposta.equalsIgnoreCase("no")) {
             System.out.println("Vuoi creare una tessera? (si/no)");
             String creaTessera = scanner.nextLine();
             if (creaTessera.equalsIgnoreCase("si")) {
@@ -154,23 +140,52 @@ public class Main {
                 String nomeTessera = scanner.nextLine();
                 System.out.println("Inserisci il cognome:");
                 String cognomeTessera = scanner.nextLine();
-                System.out.println("Inserisci il numero della tessera:");
-                String numeroTessera = scanner.nextLine();
-                tesseraAttiva = true;
-                System.out.println("Tessera creata e attivata.");
+                Tessera nuovaTessera = new Tessera(nomeTessera, cognomeTessera);
+                tesseraDao.salvaTessera(nuovaTessera);
+                System.out.println("Tessera creata e attivata. Numero tessera: " + nuovaTessera.getNumeroTessera());
             } else {
-                System.out.println("Operazione annullata.");
+                System.out.println("Operazione annullata. Torna al menu principale.");
                 return false;
             }
+        } else if (risposta.equalsIgnoreCase("si")) {
+            // Controllo dello stato della tessera
+            System.out.println("Inserisci il numero della tessera:");
+            Long numeroTessera = Long.parseLong(scanner.nextLine());
+            boolean tesseraValida = validationService.verificaTessera(numeroTessera);
+
+            if (tesseraValida) {
+                System.out.println("Tessera attiva. Procedi con l'acquisto dell'abbonamento.");
+            } else {
+                System.out.println("Tessera scaduta. Vuoi procedere con il rinnovo? (si/no)");
+                String rinnovoRisposta = scanner.nextLine();
+                if (rinnovoRisposta.equalsIgnoreCase("si")) {
+                    boolean rinnovoSuccesso = validationService.rinnovaTessera(numeroTessera);
+                    if (rinnovoSuccesso) {
+                        System.out.println("Rinnovo della tessera completato. Procedi con l'acquisto dell'abbonamento.");
+                    } else {
+                        System.out.println("Errore nel rinnovo della tessera. Operazione annullata.");
+                        return false;
+                    }
+                } else {
+                    System.out.println("Rinnovo annullato. Operazione annullata.");
+                    return false;
+                }
+            }
+        } else {
+            System.out.println("Risposta non valida.");
+            return false;
         }
+
+        // Acquisto dell'abbonamento
         System.out.println("Seleziona il tipo di abbonamento:");
         System.out.println("1. Settimanale");
         System.out.println("2. Mensile");
         int tipoAbbonamento = scanner.nextInt();
         scanner.nextLine();
         System.out.println("Abbonamento " + (tipoAbbonamento == 1 ? "settimanale" : "mensile") + " acquistato.");
-        return tesseraAttiva;
+        return true;
     }
+
 
     private static void visualizzaStatisticheTratte(Scanner scanner, TrattaDAO trattaDAO) {
         System.out.println("Inserisci la data di inizio (yyyy-MM-dd):");

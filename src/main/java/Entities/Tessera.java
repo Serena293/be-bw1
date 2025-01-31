@@ -27,6 +27,9 @@ public class Tessera {
 	@JoinColumn(name = "utente_id")
 	private Utente utente;
 
+	public Tessera(String nomeTessera, String cognomeTessera) {
+	}
+
 	public Abbonamento getAbbonamento() {
 		return abbonamento;
 	}
@@ -61,6 +64,14 @@ public class Tessera {
 
 	public void setDataScadenza(LocalDate dataScadenza) {
 		this.dataScadenza = dataScadenza;
+	}
+
+	public boolean isAttiva() {
+		return dataScadenza.isAfter(LocalDate.now());
+	}
+
+	public void rinnova() {
+		this.dataScadenza = LocalDate.now().plusYears(1); // Aggiorna la data di scadenza di un anno
 	}
 
 	//costruttori

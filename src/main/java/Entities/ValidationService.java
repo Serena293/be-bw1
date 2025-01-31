@@ -45,4 +45,16 @@ public class ValidationService {
 
 		return abbonamento != null && abbonamento.isValido();
 	}
+
+	public boolean rinnovaTessera(Long numeroTessera) {
+		// Trova la tessera per numero
+		Tessera tessera = tesseraDao.trovaPerNumero(numeroTessera);
+		if (tessera != null && !tessera.isAttiva()) {
+			// Aggiorna la data di scadenza della tessera
+			tessera.rinnova();
+			tesseraDao.aggiornaTessera(tessera);
+			return true;
+		}
+		return false;
+	}
 }

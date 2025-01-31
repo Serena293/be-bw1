@@ -8,4 +8,6 @@ public interface TesseraDao {
 	void salvaTessera(Tessera tessera);
 	Tessera trovaPerNumero(Long numeroTessera);
 	List<Tessera> tessereEmessePerPeriodo(String startDate, String endDate);
+
+	void aggiornaTessera(Tessera tessera);
 }
