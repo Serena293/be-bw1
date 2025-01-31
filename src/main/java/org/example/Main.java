@@ -8,6 +8,7 @@ import jakarta.persistence.Persistence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 import com.github.javafaker.Faker;
 import java.util.List;
@@ -78,6 +79,7 @@ public class Main {
             }
         }
     }
+
     private static void gestioneUtenteSemplice(Scanner scanner, EntityManager em, ValidationService validationService, BigliettoDao bigliettoDao) {
         boolean tesseraAttiva = false;
         String numeroTessera = "";
@@ -224,9 +226,9 @@ public class Main {
 
     private static void visualizzaBigliettiAbbonamentiVenduti(Scanner scanner, BigliettoDao bigliettoDao, AbbonamentoDao abbonamentoDao) {
         System.out.println("Inserisci la data di inizio (yyyy-MM-dd):");
-        String startDate = scanner.nextLine();
+        LocalDate startDate = LocalDate.parse(scanner.nextLine());
         System.out.println("Inserisci la data di fine (yyyy-MM-dd):");
-        String endDate = scanner.nextLine();
+        LocalDate endDate = LocalDate.parse(scanner.nextLine());
 
         long totaleBiglietti = bigliettoDao.getTotaleBigliettiVenduti(startDate, endDate);
         long totaleAbbonamenti = abbonamentoDao.getTotaleAbbonamentiVenduti(startDate, endDate);
@@ -257,9 +259,9 @@ public class Main {
 
     private static void visualizzaBigliettiVidimati(Scanner scanner, BigliettoDao bigliettoDao) {
         System.out.println("Inserisci la data di inizio (yyyy-MM-dd):");
-        String startDate = scanner.nextLine();
+        LocalDate startDate = LocalDate.parse(scanner.nextLine());
         System.out.println("Inserisci la data di fine (yyyy-MM-dd):");
-        String endDate = scanner.nextLine();
+        LocalDate endDate = LocalDate.parse(scanner.nextLine());
 
         long totaleBigliettiVidimati = bigliettoDao.getTotaleBigliettiVidimati(startDate, endDate);
 

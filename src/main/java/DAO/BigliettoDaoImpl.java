@@ -5,7 +5,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class BigliettoDaoImpl implements BigliettoDao {
@@ -13,6 +12,7 @@ public class BigliettoDaoImpl implements BigliettoDao {
 
 	public BigliettoDaoImpl(EntityManager em) {}
 
+	@Override
 	public void salvaBiglietto(Biglietto biglietto) {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
@@ -21,6 +21,7 @@ public class BigliettoDaoImpl implements BigliettoDao {
 		em.close();
 	}
 
+	@Override
 	public Biglietto trovaPerCodice(Long codice) {
 		EntityManager em = emf.createEntityManager();
 		Biglietto biglietto = em.find(Biglietto.class, codice);
@@ -28,45 +29,40 @@ public class BigliettoDaoImpl implements BigliettoDao {
 		return biglietto;
 	}
 
-	public List<Biglietto> bigliettiEmessiInPeriodo(String startDate, String endDate) {
+	@Override
+	public List<Biglietto> bigliettiEmessiInPeriodo(LocalDate startDate, LocalDate endDate) {
 		EntityManager em = emf.createEntityManager();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDate start = LocalDate.parse(startDate, formatter);
-		LocalDate end = LocalDate.parse(endDate, formatter);
 		List<Biglietto> result = em.createQuery("SELECT b FROM Biglietto b WHERE b.dataEmissione BETWEEN :start AND :end", Biglietto.class)
-			.setParameter("start", start)
-			.setParameter("end", end)
+			.setParameter("start", startDate)
+			.setParameter("end", endDate)
 			.getResultList();
 		em.close();
 		return result;
 	}
 
-	public long getTotaleBigliettiVenduti(String startDate, String endDate) {
+	@Override
+	public long getTotaleBigliettiVidimati(LocalDate startDate, LocalDate endDate) {
 		EntityManager em = emf.createEntityManager();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDate start = LocalDate.parse(startDate, formatter);
-		LocalDate end = LocalDate.parse(endDate, formatter);
-		long total = em.createQuery("SELECT COUNT(b) FROM Biglietto b WHERE b.dataEmissione BETWEEN :start AND :end", Long.class)
-			.setParameter("start", start)
-			.setParameter("end", end)
-			.getSingleResult();
-		em.close();
-		return total;
-	}
-
-	public long getTotaleBigliettiVidimati(String startDate, String endDate) {
-		EntityManager em = emf.createEntityManager();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDate start = LocalDate.parse(startDate, formatter);
-		LocalDate end = LocalDate.parse(endDate, formatter);
 		long total = em.createQuery("SELECT COUNT(b) FROM Biglietto b WHERE b.dataVidimazione BETWEEN :start AND :end", Long.class)
-			.setParameter("start", start)
-			.setParameter("end", end)
+			.setParameter("start", startDate)
+			.setParameter("end", endDate)
 			.getSingleResult();
 		em.close();
 		return total;
 	}
 
+	@Override
+	public long getTotaleBigliettiVenduti(LocalDate startDate, LocalDate endDate) {
+		EntityManager em = emf.createEntityManager();
+		long total = em.createQuery("SELECT COUNT(b) FROM Biglietto b WHERE b.dataEmissione BETWEEN :start AND :end", Long.class)
+			.setParameter("start", startDate)
+			.setParameter("end", endDate)
+			.getSingleResult();
+		em.close();
+		return total;
+	}
+
+	@Override
 	public void annullaBiglietto(Long codice) {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();

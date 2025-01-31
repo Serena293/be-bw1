@@ -29,10 +29,10 @@ public class Biglietto implements Accesso {
 	private Mezzi mezzi;
 
 	@Column(nullable = false)
-	private LocalDateTime dataEmissione;
+	private LocalDate dataEmissione;
 
 	@Column(nullable = false)
-	private LocalDateTime dataVidimazione;
+	private LocalDate dataVidimazione;
 
 
 	public Rivenditori getRivenditore() {
@@ -72,7 +72,7 @@ public class Biglietto implements Accesso {
 	}
 
 	public void setDataEmissione(LocalDate dataEmissione) {
-		this.dataEmissione = LocalDateTime.from(dataEmissione);
+		this.dataEmissione = LocalDate.from(dataEmissione);
 	}
 
 	public LocalDate getDataVidimazione() {
@@ -80,7 +80,7 @@ public class Biglietto implements Accesso {
 	}
 
 	public void setDataVidimazione(LocalDate dataVidimazione) {
-		this.dataVidimazione = LocalDateTime.from(dataVidimazione);
+		this.dataVidimazione = LocalDate.from(dataVidimazione);
 	}
 
 	@Override

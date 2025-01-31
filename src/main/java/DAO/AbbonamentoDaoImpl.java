@@ -28,29 +28,35 @@ public class AbbonamentoDaoImpl implements AbbonamentoDao {
 		return abbonamento;
 	}
 
-	public List<Abbonamento> abbonamentiEmessiPerPeriodo(String startDate, String endDate) {
+	public List<Abbonamento> abbonamentiEmessiPerPeriodo(LocalDate startDate, LocalDate endDate) {
+		List<Abbonamento> result;
 		EntityManager em = emf.createEntityManager();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDate start = LocalDate.parse(startDate, formatter);
-		LocalDate end = LocalDate.parse(endDate, formatter);
-		List<Abbonamento> result = em.createQuery("SELECT a FROM Abbonamento a WHERE a.dataInizio BETWEEN :start AND :end", Abbonamento.class)
-			.setParameter("start", start)
-			.setParameter("end", end)
-			.getResultList();
-		em.close();
+
+		try {
+			result = em.createQuery("SELECT a FROM Abbonamento a WHERE a.dataInizio BETWEEN :start AND :end", Abbonamento.class)
+				.setParameter("start", startDate)
+				.setParameter("end", endDate)
+				.getResultList();
+		} finally {
+			em.close();
+		}
+
 		return result;
 	}
 
-	public long getTotaleAbbonamentiVenduti(String startDate, String endDate) {
+	public long getTotaleAbbonamentiVenduti(LocalDate startDate, LocalDate endDate) {
+		long total;
 		EntityManager em = emf.createEntityManager();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDate start = LocalDate.parse(startDate, formatter);
-		LocalDate end = LocalDate.parse(endDate, formatter);
-		long total = em.createQuery("SELECT COUNT(a) FROM Abbonamento a WHERE a.dataInizio BETWEEN :start AND :end", Long.class)
-			.setParameter("start", start)
-			.setParameter("end", end)
-			.getSingleResult();
-		em.close();
+
+		try {
+			total = em.createQuery("SELECT COUNT(a) FROM Abbonamento a WHERE a.dataInizio BETWEEN :start AND :end", Long.class)
+				.setParameter("start", startDate)
+				.setParameter("end", endDate)
+				.getSingleResult();
+		} finally {
+			em.close();
+		}
+
 		return total;
 	}
 
