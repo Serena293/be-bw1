@@ -78,7 +78,7 @@ public class Tessera {
 
 	public Tessera(Abbonamento abbonamento, Utente utente) {
 		this.dataEmissione = LocalDate.now();
-		this.dataScadenza = LocalDate.now().plusYears(1);
+		this.dataScadenza = LocalDate.now().plusYears(1);;
 		this.abbonamento = abbonamento;
 		this.utente = utente;
 	}

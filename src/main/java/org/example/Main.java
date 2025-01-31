@@ -22,46 +22,88 @@ public class Main {
         EntityManager em = emf.createEntityManager();
         Scanner scanner = new Scanner(System.in);
 
-        Faker faker = new Faker();
 
-        AbbonamentoDaoImpl abbonamentoDao = new AbbonamentoDaoImpl(em);
-        TesseraDaoImpl tesseraDao = new TesseraDaoImpl(em);
-        BigliettoDaoImpl bigliettoDao = new BigliettoDaoImpl(em);
+        //DAO
+        AmministratoreDAO amministratoreDAO = new AmministratoreDAO(em);
         AutobusDao autobusDao = new AutobusDao(em);
+        AbbonamentoDao abbonamentoDAO = new AbbonamentoDaoImpl(em);
+        BigliettoDao bigliettoDao = new BigliettoDaoImpl(em);
         DistributoriDao distributoriDao = new DistributoriDao(em);
         MezziDAO mezziDAO = new MezziDAO(em);
         NegozioDao negozioDao = new NegozioDao(em);
         RivenditoriDao rivenditoriDao = new RivenditoriDao(em);
-        TramDao tramDao = new TramDao(em);
+        TesseraDao tesseraDao = new TesseraDaoImpl(em);
         TrattaDAO trattaDAO = new TrattaDAO(em);
+        TramDao tramDao = new TramDao(em);
         UtenteSempliceDAO utenteSempliceDAO = new UtenteSempliceDAO(em);
 
-        ValidationService validationService = new ValidationService(abbonamentoDao, tesseraDao);
-
-        String partenza = faker.address().cityName();
-        String capolinea = faker.address().cityName();
-        double tempoDiPercorrenza = faker.number().randomDouble(2, 30, 120);
-        Tratta tratta = new Tratta(partenza, capolinea, tempoDiPercorrenza);
-
-        Mezzi.Stato stato = Mezzi.Stato.values()[faker.number().numberBetween(0, Mezzi.Stato.values().length)];
-
-        String descrizione = faker.lorem().sentence();
-        Autobus autobus = new Autobus(stato, descrizione, tratta);
-
-        System.out.println("Tratta: " + tratta.getPartenza() + " -> " + tratta.getCapolinea() + " | Tempo di percorrenza: "
-            + tratta.getTempoDiPercorrenza() + " minuti");
-        System.out.println("Autobus: " + autobus.getDescrizione() + " | Stato: " + autobus.getStato());
-
-        em.getTransaction().begin();
+        //creiamo le istanze delle varie classi e le salviamo nel db
         try {
-            em.persist(tratta);
-            em.persist(autobus);
+            // Avvio della transazione
+            em.getTransaction().begin();
+
+            // Creazione delle istanze delle tratte
+            Tratta tratta1 = new Tratta("Napoli", "Salerno", 45.0);
+            Tratta tratta2 = new Tratta("Roma", "Firenze", 90.0);
+            Tratta tratta3 = new Tratta("Milano", "Bologna", 120.0);
+
+            // Creazione delle istanze degli autobus
+            Autobus autobus1 = new Autobus(Mezzi.Stato.InServizio, "Linea A", tratta1);
+            Autobus autobus2 = new Autobus(Mezzi.Stato.InManutenzione, "Linea B", tratta2);
+            Autobus autobus3 = new Autobus(Mezzi.Stato.InServizio, "Linea C", tratta3);
+
+            // Creazione delle istanze dei tram
+            Tram tram1 = new Tram(Mezzi.Stato.InServizio, "Tram A", tratta1);
+            Tram tram2 = new Tram(Mezzi.Stato.InManutenzione, "Tram B", tratta2);
+            Tram tram3 = new Tram(Mezzi.Stato.InServizio, "Tram C", tratta3);
+
+            // Creazione delle istanze dei distributori
+            Distributori distributore1 = new Distributori(1000, 200, "Automatico", "Piazza del Plebiscito, Napoli");
+            Distributori distributore2 = new Distributori(1500, 300, "Manuale", "Stazione Termini, Roma");
+            Distributori distributore3 = new Distributori(1200, 250, "Automatico", "Piazza del Duomo, Milano");
+
+            //Creazione delle istanze dei negozi
+            Negozi negozio1 = new Negozi(100, 50, "Negozio A", "Via Roma 1");
+            Negozi negozio2 = new Negozi(200, 75, "Negozio B", "Corso Italia 5");
+            Negozi negozio3 = new Negozi(150, 60, "Negozio C", "Piazza Duomo 3");
+
+            // Salvataggio tramite DAO
+            trattaDAO.save(tratta1);
+            trattaDAO.save(tratta2);
+            trattaDAO.save(tratta3);
+
+            autobusDao.save(autobus1);
+            autobusDao.save(autobus2);
+            autobusDao.save(autobus3);
+
+            tramDao.save(tram1);
+            tramDao.save(tram2);
+            tramDao.save(tram3);
+
+            distributoriDao.save(distributore1);
+            distributoriDao.save(distributore2);
+            distributoriDao.save(distributore3);
+
+            negozioDao.save(negozio1);
+            negozioDao.save(negozio2);
+            negozioDao.save(negozio3);
+
+
+            // Commit della transazione
             em.getTransaction().commit();
-            System.out.println("Le entità sono state salvate nel database.");
         } catch (Exception e) {
-            em.getTransaction().rollback();
+            // Gestione degli errori
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
             e.printStackTrace();
+        } finally {
+            // Chiusura del EntityManager
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
         }
+
 
         while (true) {
             System.out.println("\nSeleziona il tipo di utente:");
@@ -80,7 +122,8 @@ public class Main {
         }
     }
 
-    private static void gestioneUtenteSemplice(Scanner scanner, EntityManager em, ValidationService validationService, BigliettoDao bigliettoDao, TesseraDao tesseraDao) {
+    private static void gestioneUtenteSemplice(Scanner scanner, EntityManager em, ValidationService validationService,
+                                               BigliettoDao bigliettoDao, TesseraDao tesseraDao) {
         while (true) {
             System.out.println("\nMenu utente semplice:");
             System.out.println("1. Acquista biglietto");
@@ -136,13 +179,10 @@ public class Main {
             System.out.println("Vuoi creare una tessera? (si/no)");
             String creaTessera = scanner.nextLine();
             if (creaTessera.equalsIgnoreCase("si")) {
-                System.out.println("Inserisci il nome:");
-                String nomeTessera = scanner.nextLine();
-                System.out.println("Inserisci il cognome:");
-                String cognomeTessera = scanner.nextLine();
-                Tessera nuovaTessera = new Tessera(nomeTessera, cognomeTessera);
-                tesseraDao.salvaTessera(nuovaTessera);
-                System.out.println("Tessera creata e attivata. Numero tessera: " + nuovaTessera.getNumeroTessera());
+                System.out.println("okay facciamo una tessera");
+                Tessera tessera = new Tessera();
+                tessera.creaTessera();
+                System.out.println("Tessera creata e attivata. Numero tessera: " + tessera.getNumeroTessera());
             } else {
                 System.out.println("Operazione annullata. Torna al menu principale.");
                 return false;
