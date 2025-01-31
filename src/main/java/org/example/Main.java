@@ -1,6 +1,5 @@
 package org.example;
 
-import AltreClassi.PercorriTratta;
 import DAO.*;
 import Entities.*;
 import jakarta.persistence.EntityManager;
@@ -11,7 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
 import java.util.Scanner;
-import com.github.javafaker.Faker;
 import java.util.List;
 
 public class Main {
@@ -114,9 +112,12 @@ public class Main {
             int tipoUtente = scanner.nextInt();
             scanner.nextLine();
 
+            ValidationService validationService = new ValidationService(abbonamentoDAO,tesseraDao);
+
+
             switch (tipoUtente) {
                 case 1 -> gestioneUtenteSemplice(scanner, em, validationService, bigliettoDao, tesseraDao);
-                case 2 -> gestioneAmministratore(scanner, em, abbonamentoDao, bigliettoDao, mezziDAO, trattaDAO);
+                case 2 -> gestioneAmministratore(scanner, em, abbonamentoDAO, bigliettoDao, mezziDAO, trattaDAO);
                 default -> System.out.println("Scelta non valida.");
             }
         }

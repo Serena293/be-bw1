@@ -124,7 +124,8 @@ public class Tessera {
 		UtenteSemplice utenteSemplice = new UtenteSemplice(nomeUtente, cognomeUtente, true, null);
 
 		// Creazione della tessera con l'abbonamento
-		Tessera tessera = new Tessera(dataInizio, dataFine, abbonamento, utenteSemplice);
+		Tessera tessera = new Tessera(abbonamento, utenteSemplice);
+
 
 		// Aggiorniamo l'abbonamento con la tessera
 		abbonamento.setTessera(tessera);
