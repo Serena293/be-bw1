@@ -73,7 +73,7 @@ public class Main {
             scanner.nextLine();
 
             switch (tipoUtente) {
-                case 1 -> gestioneUtenteSemplice(scanner, em, validationService, bigliettoDao);
+                case 1 -> gestioneUtenteSemplice(scanner, em, validationService, bigliettoDao, tesseraDao);
                 case 2 -> gestioneAmministratore(scanner, em, abbonamentoDao, bigliettoDao, mezziDAO, trattaDAO);
                 default -> System.out.println("Scelta non valida.");
             }

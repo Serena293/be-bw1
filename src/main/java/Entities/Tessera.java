@@ -27,8 +27,6 @@ public class Tessera {
 	@JoinColumn(name = "utente_id")
 	private Utente utente;
 
-	public Tessera(String nomeTessera, String cognomeTessera) {
-	}
 
 	public Abbonamento getAbbonamento() {
 		return abbonamento;
@@ -77,13 +75,11 @@ public class Tessera {
 	//costruttori
 	public Tessera(){}
 
-	public Tessera(LocalDate dataEmissione, LocalDate dataScadenza,  Abbonamento abbonamento, Utente utente) {
-		this.dataEmissione = dataEmissione;
-		this.dataScadenza = dataScadenza;
+	public Tessera(Abbonamento abbonamento, Utente utente) {
+		this.dataEmissione = LocalDate.now();
+		this.dataScadenza = LocalDate.now().plusYears(1);
 		this.abbonamento = abbonamento;
 		this.utente = utente;
-
-
 	}
 
 	@Override
